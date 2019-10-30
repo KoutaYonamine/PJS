@@ -20,7 +20,11 @@ public class ShurimpController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (RotaFlg)
+        {
+            Protate();
+            Getkeystate();
+        }
     }
     private void FixedUpdate()
     {
