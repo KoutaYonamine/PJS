@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Aerial
+  - Underwater
+  - Danger
+  - Chance
+  - ChanceTopCollider
+  - ChanceUnderCollider
+  - ChanceRightCollider
+  - ChanceLeftCollider
+  - SideWall
+  - UnderWall
   layers:
   - Default
   - TransparentFX
