@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Constant;
+using UnityEngine.UI;
 
 public class ShurimpController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class ShurimpController : MonoBehaviour
     Vector2 Pposition;
 
     bool RotaFlg;
+
+    public Slider enemyhp;
 
     void Start()
     {
@@ -39,7 +42,8 @@ public class ShurimpController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rig.AddForce(transform.up * 3, ForceMode2D.Impulse);
-            RotaFlg = false;
+            enemyhp.GetComponent<EnemyHP>().HpDamage(0.01f);
+            //RotaFlg = false;
         }
     }
 
