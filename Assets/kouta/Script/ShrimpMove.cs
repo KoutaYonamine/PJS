@@ -15,7 +15,7 @@ public class ShrimpMove : MonoBehaviour
     [SerializeField]
     private float Deceleration_coefficient = 0; //シュリンプへの減速係数　※大きくすると減速度が大きくなる
     [SerializeField]
-    private float Chance_Repulsion;             //シュリンプがタグ:Chanceに触れた時の反発係数
+    private float Safety_Repulsion;             //シュリンプがタグ:Chanceに触れた時の反発係数
     [SerializeField]
     private float SideWall_Repulsion;           //シュリンプがタグ:SideWallに触れた時の反発係数
     [SerializeField]
@@ -25,7 +25,7 @@ public class ShrimpMove : MonoBehaviour
     bool SpaceButtonPushed = false;             //Spaceが押されたかのフラグ
     bool UnderWaterStayed = false;              //シュリンプが水中にいるかのフラグ
     bool AerialStayed = false;                  //シュリンプが空中にいるかのフラグ
-    bool Chance = false;                        //Chanceに触れたかのフラグ
+    bool Safety = false;                        //Chanceに触れたかのフラグ
     bool SideWall = false;                      //SideWallに触れたかのフラグ
     bool UnderWall = false;                      //UnderWallに触れたかのフラグ
 
@@ -44,10 +44,15 @@ public class ShrimpMove : MonoBehaviour
     void Update()
     {
         //SpaceKeyの入力処理
-        if (UnderWaterStayed && Input.GetKeyDown(KeyCode.Space))
+        if (UnderWaterStayed)   //水中にいますか？
         {
-            SpaceButtonPushed = true;   //SpaceKeyが押されました
-            //Debug.Log("Update内のGetKeyDown");
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Keypad5)
+                || Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                SpaceButtonPushed = true;   //SpaceKeyが押されました
+                //Debug.Log("Update内のGetKeyDown");
+            }
+
         }
     }
 
@@ -60,7 +65,7 @@ public class ShrimpMove : MonoBehaviour
         /************************************************************
         * シュリンプの水中での処理
         ************************************************************/
-        //空中にいてSpaceKeyが押されたらシュリンプが移動
+        //水中にいてSpaceKeyが押されたらシュリンプが移動
         if (UnderWaterStayed && SpaceButtonPushed)
         {
             //Debug.Log("スペースが押されました");
@@ -69,12 +74,13 @@ public class ShrimpMove : MonoBehaviour
             //Rigidbody2Dに力を加える（シュリンプ発射）
             rigidbody.AddForce(move_force, ForceMode2D.Impulse);
             SpaceButtonPushed = false;  //SpaceKey入力のリセット
+
         }
 
         /************************************************************
         * シュリンプの空中での処理
         ************************************************************/
-        if (AerialStayed)
+        if (AerialStayed)   //空中にいますか？
         {
             //シュリンプの落下処理
             UnderWater_force = new Vector3(0, Drop_speed, 0);
@@ -87,10 +93,10 @@ public class ShrimpMove : MonoBehaviour
         * アタック後のシュリンプの挙動処理
         ************************************************************/
         //Chance状態のエネミーにアタック後
-        if (Chance)
+        if (Safety)
         {
-            rigidbody.velocity = rigidbody.velocity * Chance_Repulsion;
-            Chance = false;
+            rigidbody.velocity = rigidbody.velocity * Safety_Repulsion;
+            Safety = false;
         }
         //Tag:SideWallにアタック後
         if (SideWall)
@@ -104,6 +110,7 @@ public class ShrimpMove : MonoBehaviour
             rigidbody.velocity = rigidbody.velocity * UnderWall_Repulsion;
             UnderWall = false;
         }
+        
     }
 
     /************************************************************
@@ -140,9 +147,9 @@ public class ShrimpMove : MonoBehaviour
         /************************************************************
         * Chance状態のエネミーとの当たり判定処理
         ************************************************************/
-        if (collision.gameObject.tag == "Chance")
+        if (collision.gameObject.tag == "Safety")
         {
-            Chance = true;
+            Safety = true;
         }
         /************************************************************
         * Tag:SideWallとの当たり判定処理
@@ -164,5 +171,5 @@ public class ShrimpMove : MonoBehaviour
 
 //途中の作業はここに書いて何してたかわかるようにする
 /***************************************************
- * コライダー衝突で物理挙動に影響させたくない
+ * 
 *****************************************************/
