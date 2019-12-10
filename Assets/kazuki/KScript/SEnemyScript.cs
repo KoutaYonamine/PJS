@@ -26,6 +26,9 @@ public class SEnemyScript : MonoBehaviour
     //プルプルカウント
     private int count = 0;
 
+    public GameObject player;
+    private Vector3 playerpos;
+
     enum TEKI_MOVE
     {
         atunder,        //上から攻撃
@@ -183,9 +186,11 @@ public class SEnemyScript : MonoBehaviour
             box.transform.position += new Vector3(-attckspeed * 10, 0);
             Debug.Log("3");
         }
-        else if (transform.position.x >= Enemy.attckstoppos )
+        else if (transform.position.x >= Enemy.attckstoppos && (waittime += Time.deltaTime) > 0.3f)
+        {
             endflg = true;
-
+        }
+       
         return endflg;
     }
 
@@ -193,6 +198,11 @@ public class SEnemyScript : MonoBehaviour
     void EnemyModeChang(TEKI_MOVE Mode)
     {
         float sidestart = Enemy.sidestart;
+        
+        
+
+        if(player != null)
+        playerpos = player.transform.position;
 
         switch (Mode)
         {
@@ -207,20 +217,30 @@ public class SEnemyScript : MonoBehaviour
                 if (Random.Range(0, probability[1]) == 0)
                 {
                     mode = TEKI_MOVE.atside;
-                    transform.position = new Vector3(sidestart, 0);
+                    if (playerpos != null)
+                        transform.position = new Vector3(sidestart, playerpos.y);
+                    else transform.position = new Vector3(sidestart, 0);
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
                     GetComponent<SpriteRenderer>().sprite = Sphand;
                     mode = TEKI_MOVE.special;
                     box = Instantiate(sub);
-                    transform.position = new Vector3(sidestart, 0, 0);
+                    if (playerpos != null)
+                    {
+                        transform.position = new Vector3(sidestart, playerpos.y);
+                        box.transform.position = new Vector3(-sidestart, playerpos.y);
+                    }
+                    else
+                        transform.position = new Vector3(sidestart, 0);
                 }
                 else
                 {
                     GetComponent<SpriteRenderer>().sprite = Uhand;
                     mode = TEKI_MOVE.atunder;
-                    transform.position = new Vector3(0, Enemy.startpos);
+                    if (playerpos != null)
+                        transform.position = new Vector3(playerpos.x, Enemy.startpos);
+                    else transform.position = new Vector3(0, Enemy.startpos);
                 }
                 waittime = 0;
                 break;
@@ -240,16 +260,30 @@ public class SEnemyScript : MonoBehaviour
                 {
                     GetComponent<SpriteRenderer>().sprite = Shand;
                     mode = TEKI_MOVE.atside;
-                    transform.position = new Vector3(sidestart, 0);
+                    if (playerpos != null)
+                        transform.position = new Vector3(sidestart, playerpos.y);
+                    else transform.position = new Vector3(sidestart, 0);
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
                     GetComponent<SpriteRenderer>().sprite = Sphand;
                     mode = TEKI_MOVE.special;
                     box = Instantiate(sub);
-                    transform.position = new Vector3(sidestart, 0, 0);
+                    if (playerpos != null)
+                    {
+                        transform.position = new Vector3(sidestart, playerpos.y);
+                        box.transform.position = new Vector3(-sidestart, playerpos.y);
+                    }
+                    else
+                        transform.position = new Vector3(sidestart, 0);
                 }
-                else mode = TEKI_MOVE.atunder;
+                else
+                {
+                    mode = TEKI_MOVE.atunder;
+                    if (playerpos != null)
+                        transform.position = new Vector3(playerpos.x, Enemy.startpos);
+                    else transform.position = new Vector3(0, Enemy.startpos);
+                }
                 waittime = 0;
                 break;
         }
