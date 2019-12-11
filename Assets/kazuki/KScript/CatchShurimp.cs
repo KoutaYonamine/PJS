@@ -5,9 +5,9 @@ using UnityEngine;
 public class CatchShurimp : MonoBehaviour
 {
     public int defalthp;
-    private int count;
+    private int count=1;
     public Sprite[] shurimp;
-    private bool clickFlg;
+    private bool clickFlg = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,8 @@ public class CatchShurimp : MonoBehaviour
         if(count == 0)
         {
             GetComponent<SEnemyScript>().ChangMode();
+            count++;
+            clickFlg = false;
         }
     }
 
