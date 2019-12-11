@@ -69,7 +69,7 @@ public class SEnemyScript : MonoBehaviour
             //横から攻撃
             case TEKI_MOVE.atside:
                 //攻撃中は触れるとプレイヤーにダメージ
-                if (attckFlg = EnemyAttckSide()) { if (gameObject.tag != "Danger") gameObject.tag = "Danger"; }
+                if (attckFlg = EnemyAttckSide()) { if (gameObject.tag != "GetHold") gameObject.tag = "GetHold"; }
 
                 //大体2秒後になにかしらの攻撃に移る
                 else if ((waittime += Time.deltaTime) > 2) { EnemyModeChang(mode); tag = "Safety"; }
@@ -225,7 +225,6 @@ public class SEnemyScript : MonoBehaviour
                     if (playerpos != null)
                         transform.position = new Vector3(sidestart, playerpos.y);
                     else transform.position = new Vector3(sidestart, 0);
-                    tag = "GetHold";
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
@@ -269,7 +268,6 @@ public class SEnemyScript : MonoBehaviour
                     if (playerpos != null)
                         transform.position = new Vector3(sidestart, playerpos.y);
                     else transform.position = new Vector3(sidestart, 0);
-                    tag = "GetHold";
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
@@ -299,7 +297,7 @@ public class SEnemyScript : MonoBehaviour
 
     public void OnCollisionEnter2D()
     {
-        if (tag == "GetHold")
+        if (gameObject.tag == "GetHold")
         {
             transform.position += new Vector3(2, 0);
             GetComponent<SpriteRenderer>().sprite = Catch;

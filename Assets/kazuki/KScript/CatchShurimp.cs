@@ -36,7 +36,7 @@ public class CatchShurimp : MonoBehaviour
 
     public void Scriptstart()
     {
-        tag = "Safety";
+        gameObject.tag = "Safety";
         clickFlg = true;
         count = defalthp;
     }
