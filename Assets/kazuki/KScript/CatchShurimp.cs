@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class CatchShurimp : MonoBehaviour
 {
-    private const int defalthp = 10;
+    private const int defalthp = 100;
     private int count;
     public Sprite[] shurimp;
-    
+    private bool clickFlg;
 
     // Start is called before the first frame update
     void Start()
     {
-        count = defalthp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && count != 0)
+        if (clickFlg == true && Input.GetKeyDown(KeyCode.UpArrow) && count != 0)
         {
             KeyClick();
         }
@@ -28,5 +27,12 @@ public class CatchShurimp : MonoBehaviour
     {
         count--;
         GetComponent<SpriteRenderer>().sprite = shurimp[count%2];
+        Debug.Log(count);
+    }
+
+    public void scriptstart()
+    {
+        clickFlg = true;
+        count = defalthp;
     }
 }

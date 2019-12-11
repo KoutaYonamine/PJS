@@ -15,6 +15,7 @@ public class SEnemyScript : MonoBehaviour
     public Sprite Shand;
     public Sprite Sphand;
     public Sprite Uhand;
+    public Sprite Catch;
 
     [SerializeField,TooltipAttribute("0->上から攻撃の確率  1->横攻撃の確率  2->両手攻撃の確率")]
     int[] probability = new int[3];
@@ -34,7 +35,8 @@ public class SEnemyScript : MonoBehaviour
         atunder,        //上から攻撃
         atside,         //横からの攻撃
         buck,           //戻っていく
-        special         //両手攻撃
+        special,        //両手攻撃
+        pcatch          //捕まえる
     }
     TEKI_MOVE mode = TEKI_MOVE.atunder;
 
@@ -106,6 +108,9 @@ public class SEnemyScript : MonoBehaviour
                 //攻撃中
                 else if (gameObject.tag != "Danger") { gameObject.tag = "Danger"; box.tag = "Danger"; }
 
+                break;
+
+            case TEKI_MOVE.pcatch:
                 break;
         }
     }
@@ -288,4 +293,11 @@ public class SEnemyScript : MonoBehaviour
                 break;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        GetComponent<SpriteRenderer>().sprite = Catch;
+        mode = TEKI_MOVE.pcatch;
+    }
+
 }
