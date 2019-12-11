@@ -53,8 +53,8 @@ public class ShrimpRotation : MonoBehaviour
                 rotation_speed *= -1;
             }
         }
-        Debug.Log(RightRotationPushed);
-        Debug.Log(LeftRotationPushed);
+        //Debug.Log(RightRotationPushed);
+        //Debug.Log(LeftRotationPushed);
         transform.Rotate( new Vector3(0, 0, rotation_speed + (RotationalSpeedIncrease * (RightRotationPushed + LeftRotationPushed))) * Time.deltaTime, Space.Self );
     }
 }

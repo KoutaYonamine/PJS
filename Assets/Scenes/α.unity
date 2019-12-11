@@ -646,7 +646,7 @@ PrefabInstance:
     - target: {fileID: 5678383629171287082, guid: c7795c3b701e5c24a9ac65de42d1182a,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5678383629171287082, guid: c7795c3b701e5c24a9ac65de42d1182a,
         type: 3}
@@ -1157,7 +1157,7 @@ PrefabInstance:
     - target: {fileID: 4415453207377222527, guid: d49d70e9dc18dc34cb859567a760b438,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4415453207377222527, guid: d49d70e9dc18dc34cb859567a760b438,
         type: 3}
@@ -1442,6 +1442,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: df53387459d33a64c8bb0bfaa0a4e910,
         type: 3}
+    - target: {fileID: 8984530707781807214, guid: 619c6cbe6f5b65b4588112464ce1730d,
+        type: 3}
+      propertyPath: probability.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984530707781807214, guid: 619c6cbe6f5b65b4588112464ce1730d,
+        type: 3}
+      propertyPath: probability.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984530707781807214, guid: 619c6cbe6f5b65b4588112464ce1730d,
+        type: 3}
+      propertyPath: probability.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 619c6cbe6f5b65b4588112464ce1730d, type: 3}
 --- !u!1 &2029860117 stripped
@@ -1570,7 +1585,7 @@ PrefabInstance:
     - target: {fileID: 685524774676386223, guid: 769f956b6c96b124cbfc9c4ddced8311,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 685524774676386223, guid: 769f956b6c96b124cbfc9c4ddced8311,
         type: 3}

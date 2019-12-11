@@ -23,6 +23,7 @@ public class CatchShurimp : MonoBehaviour
         }
         if(count == 0)
         {
+            gameObject.tag = "Safety";
             GetComponent<SEnemyScript>().ChangMode();
             count++;
             clickFlg = false;
@@ -38,7 +39,7 @@ public class CatchShurimp : MonoBehaviour
 
     public void Scriptstart()
     {
-        gameObject.tag = "Safety";
+        
         clickFlg = true;
         count = defalthp;
     }
