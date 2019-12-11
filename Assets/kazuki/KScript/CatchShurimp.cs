@@ -21,6 +21,10 @@ public class CatchShurimp : MonoBehaviour
         {
             KeyClick();
         }
+        if(count == 0)
+        {
+            GetComponent<SEnemyScript>().ChangMode();
+        }
     }
 
     void KeyClick()

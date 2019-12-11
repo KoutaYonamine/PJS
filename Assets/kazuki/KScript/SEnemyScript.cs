@@ -225,7 +225,7 @@ public class SEnemyScript : MonoBehaviour
                     if (playerpos != null)
                         transform.position = new Vector3(sidestart, playerpos.y);
                     else transform.position = new Vector3(sidestart, 0);
-                    tag = "get hold";
+                    tag = "GetHold";
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
@@ -269,7 +269,7 @@ public class SEnemyScript : MonoBehaviour
                     if (playerpos != null)
                         transform.position = new Vector3(sidestart, playerpos.y);
                     else transform.position = new Vector3(sidestart, 0);
-                    tag = "get hold";
+                    tag = "GetHold";
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
@@ -299,13 +299,18 @@ public class SEnemyScript : MonoBehaviour
 
     public void OnCollisionEnter2D()
     {
-        if (tag == "get hold")
+        if (tag == "GetHold")
         {
             transform.position += new Vector3(2, 0);
             GetComponent<SpriteRenderer>().sprite = Catch;
             mode = TEKI_MOVE.pcatch;
             GetComponent<CatchShurimp>().Scriptstart();
         }
+    }
+
+    public void ChangMode()
+    {
+        mode = TEKI_MOVE.buck;
     }
 
 }
