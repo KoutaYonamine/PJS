@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CatchShurimp : MonoBehaviour
 {
-    private const int defalthp = 100;
+    public int defalthp;
     private int count;
     public Sprite[] shurimp;
     private bool clickFlg;
@@ -32,6 +32,7 @@ public class CatchShurimp : MonoBehaviour
 
     public void Scriptstart()
     {
+        tag = "Safety";
         clickFlg = true;
         count = defalthp;
     }
