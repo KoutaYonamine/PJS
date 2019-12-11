@@ -30,7 +30,7 @@ public class CatchShurimp : MonoBehaviour
         Debug.Log(count);
     }
 
-    public void scriptstart()
+    public void Scriptstart()
     {
         clickFlg = true;
         count = defalthp;

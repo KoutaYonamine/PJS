@@ -294,10 +294,16 @@ public class SEnemyScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    public void OnCollisionEnter2D(Collision2D collision)
     {
-        GetComponent<SpriteRenderer>().sprite = Catch;
-        mode = TEKI_MOVE.pcatch;
+        if (mode == TEKI_MOVE.atside)
+        {
+            transform.position += new Vector3(2, 0);
+            GetComponent<SpriteRenderer>().sprite = Catch;
+            mode = TEKI_MOVE.pcatch;
+            GetComponent<CatchShurimp>().Scriptstart();
+        }
     }
 
 }
