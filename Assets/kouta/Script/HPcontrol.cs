@@ -54,6 +54,13 @@ public class HPcontrol : MonoBehaviour
             }
             Health--;
         }
+        /************************************************************
+        * デンジャー状態のエネミーとの当たり判定処理
+        ************************************************************/
+        if (collision.gameObject.tag == "GetHold")
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 }
 
