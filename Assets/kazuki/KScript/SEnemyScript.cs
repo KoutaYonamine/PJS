@@ -299,7 +299,7 @@ public class SEnemyScript : MonoBehaviour
 
     public void OnCollisionEnter2D()
     {
-        if (gameObject.tag == "GetHold")
+        if (gameObject.tag == "GetHold" && mode == TEKI_MOVE.atside)
         {
             transform.position += new Vector3(2, 0);
             GetComponent<SpriteRenderer>().sprite = Catch;
@@ -310,6 +310,7 @@ public class SEnemyScript : MonoBehaviour
 
     public void ChangMode()
     {
+        GetComponent<SpriteRenderer>().sprite = Uhand;
         mode = TEKI_MOVE.buck;
     }
 
