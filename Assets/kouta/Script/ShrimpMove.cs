@@ -165,6 +165,13 @@ public class ShrimpMove : MonoBehaviour
         {
             UnderWall = true;
         }
+        /************************************************************
+        * GetHold状態のエネミーとの当たり判定処理
+        ************************************************************/
+        if (collision.gameObject.tag == "GetHold")
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 }
 
