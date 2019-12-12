@@ -72,7 +72,7 @@ public class SEnemyScript : MonoBehaviour
                 if (attckFlg = EnemyAttckSide()) { /*if (gameObject.tag != "GetHold") gameObject.tag = "GetHold";*/ }
 
                 //大体2秒後になにかしらの攻撃に移る
-                else if ((waittime += Time.deltaTime) > 2) { EnemyModeChang(mode); tag = "Safety"; }
+                else if ((waittime += Time.deltaTime) > 2) { tag = "Safety"; EnemyModeChang(mode);  }
 
                 //攻撃が終わった後攻撃できるように
                 else if (gameObject.tag != "Safety") gameObject.tag = "Safety";
