@@ -312,6 +312,7 @@ public class SEnemyScript : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().sprite = Uhand;
         mode = TEKI_MOVE.buck;
+        player.SetActive(true);
     }
 
 }
