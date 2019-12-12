@@ -60,7 +60,7 @@ public class HPcontrol : MonoBehaviour
         if (collision.gameObject.tag == "GetHold")
         {
             Debug.Log("💩");
-            this.gameObject.SetActive(false);
+            //this.gameObject.SetActive(false);
         }
     }
 }
