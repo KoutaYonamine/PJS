@@ -14,6 +14,9 @@ public class SEnemyScript : MonoBehaviour
     //手のイラスト　Shandが左から来る攻撃の時  Sphandが両手での攻撃の時  Uhandが現在標準
     public Sprite Shand;
     public Sprite Sphand;
+    public Sprite Sphand2;
+    public Sprite Sphand3;
+
     public Sprite Uhand;
     public Sprite Catch;
 
@@ -36,7 +39,8 @@ public class SEnemyScript : MonoBehaviour
         atside,         //横からの攻撃
         buck,           //戻っていく
         special,        //両手攻撃
-        pcatch          //捕まえる
+        pcatch,          //捕まえる
+        douga
     }
     TEKI_MOVE mode = TEKI_MOVE.atunder;
 
@@ -50,6 +54,11 @@ public class SEnemyScript : MonoBehaviour
 
     void Update()
     {
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            mode = TEKI_MOVE.douga;
+        }
 
         switch (mode)
         {
@@ -111,6 +120,9 @@ public class SEnemyScript : MonoBehaviour
                 break;
 
             case TEKI_MOVE.pcatch:
+                break;
+            case TEKI_MOVE.douga:
+                mode = TEKI_MOVE.buck;
                 break;
         }
     }

@@ -1442,6 +1442,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 855350918}
+    - target: {fileID: 4565249568773237518, guid: 62b3d80f9582c8640b053a470f7a100c,
+        type: 3}
+      propertyPath: Sphand2
+      value: 
+      objectReference: {fileID: 21300000, guid: 4262559b00e58b04c86cf39e7c635ddb,
+        type: 3}
+    - target: {fileID: 4565249568773237518, guid: 62b3d80f9582c8640b053a470f7a100c,
+        type: 3}
+      propertyPath: Sphand3
+      value: 
+      objectReference: {fileID: 21300000, guid: c24a6a963939de946b519456133020b9,
+        type: 3}
     - target: {fileID: 4565249568773237515, guid: 62b3d80f9582c8640b053a470f7a100c,
         type: 3}
       propertyPath: defalthp
