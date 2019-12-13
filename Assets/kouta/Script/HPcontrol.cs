@@ -54,14 +54,6 @@ public class HPcontrol : MonoBehaviour
             }
             Health--;
         }
-        /************************************************************
-        * ゲットホールド状態のエネミーとの当たり判定処理
-        ************************************************************/
-        if (collision.gameObject.tag == "GetHold")
-        {
-            Debug.Log("💩");
-            //this.gameObject.SetActive(false);
-        }
     }
 }
 
