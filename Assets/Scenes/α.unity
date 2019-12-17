@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abfe1faa00b63a408eff47d02161048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defalthp: 3
+  defalthp: 10
   shurimp:
   - {fileID: 21300000, guid: df53387459d33a64c8bb0bfaa0a4e910, type: 3}
   - {fileID: 21300000, guid: eab67606751c0e040a68fbf792522cee, type: 3}
@@ -1384,7 +1384,7 @@ PrefabInstance:
     - target: {fileID: 8984530707781807215, guid: 619c6cbe6f5b65b4588112464ce1730d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.55
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8984530707781807215, guid: 619c6cbe6f5b65b4588112464ce1730d,
         type: 3}
@@ -1460,17 +1460,17 @@ PrefabInstance:
     - target: {fileID: 8984530707781807214, guid: 619c6cbe6f5b65b4588112464ce1730d,
         type: 3}
       propertyPath: probability.Array.data[0]
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8984530707781807214, guid: 619c6cbe6f5b65b4588112464ce1730d,
         type: 3}
       propertyPath: probability.Array.data[1]
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8984530707781807214, guid: 619c6cbe6f5b65b4588112464ce1730d,
         type: 3}
       propertyPath: probability.Array.data[2]
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 619c6cbe6f5b65b4588112464ce1730d, type: 3}
