@@ -11,7 +11,7 @@ namespace Constant
     public static class Enemy
     {
         //下までいって止まる位置
-        public const float stopmove = 0;
+        public const float stopmove = -4;
         //上まで上がっていって止まる位置
         public const float startpos = 8;
         //横攻撃の止まる位置

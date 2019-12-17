@@ -37,6 +37,7 @@ public class SEnemyScript : MonoBehaviour
     {
         atunder,        //上から攻撃
         atside,         //横からの攻撃
+        atsider,        //横からの攻撃（右から）
         buck,           //戻っていく
         special,        //両手攻撃
         pcatch,          //捕まえる
@@ -82,6 +83,18 @@ public class SEnemyScript : MonoBehaviour
 
                 //大体2秒後になにかしらの攻撃に移る
                 else if ((waittime += Time.deltaTime) > 2) { tag = "Safety"; EnemyModeChang(mode);  }
+
+                //攻撃が終わった後攻撃できるように
+                else if (gameObject.tag != "Safety") gameObject.tag = "Safety";
+
+                break;
+
+            case TEKI_MOVE.atsider:
+                //攻撃中は触れるとプレイヤーにダメージ
+                if (attckFlg = EnemyAttckSideR()) { /*if (gameObject.tag != "GetHold") gameObject.tag = "GetHold";*/ }
+
+                //大体2秒後になにかしらの攻撃に移る
+                else if ((waittime += Time.deltaTime) > 2) { tag = "Safety"; transform.rotation = Quaternion.identity ; EnemyModeChang(mode); }
 
                 //攻撃が終わった後攻撃できるように
                 else if (gameObject.tag != "Safety") gameObject.tag = "Safety";
@@ -145,6 +158,15 @@ public class SEnemyScript : MonoBehaviour
 
         if (transform.position.x > Enemy.sidestop) flg = false;
         if (flg) transform.position += new Vector3(Enemy.attckspeed, 0);
+
+        return flg;
+    }
+    bool EnemyAttckSideR()
+    {
+        bool flg = true;
+
+        if (transform.position.x < -Enemy.sidestop) flg = false;
+        if (flg) transform.position -= new Vector3(Enemy.attckspeed, 0);
 
         return flg;
     }
@@ -216,7 +238,6 @@ public class SEnemyScript : MonoBehaviour
     {
         float sidestart = Enemy.sidestart;
         
-        
 
         if(player != null)
         playerpos = player.transform.position;
@@ -233,11 +254,25 @@ public class SEnemyScript : MonoBehaviour
             case TEKI_MOVE.atside:
                 if (Random.Range(0, probability[1]) == 0)
                 {
-                    mode = TEKI_MOVE.atside;
-                    if (playerpos != null)
-                        transform.position = new Vector3(sidestart, playerpos.y);
-                    else transform.position = new Vector3(sidestart, 0);
-                    gameObject.tag = "GetHold";
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        mode = TEKI_MOVE.atside;
+                        if (playerpos != null)
+                            transform.position = new Vector3(sidestart, playerpos.y);
+                        else transform.position = new Vector3(sidestart, 0);
+                        gameObject.tag = "GetHold";
+                    }
+                    else
+                    {
+                        mode = TEKI_MOVE.atsider;
+                        transform.rotation = new Quaternion(0,180,0,0);
+                        if (playerpos != null) 
+                            transform.position = new Vector3(-sidestart, playerpos.y);
+                        else transform.position = new Vector3(-sidestart, 0);
+                        gameObject.tag = "GetHold";
+
+                    }
+
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
@@ -263,6 +298,54 @@ public class SEnemyScript : MonoBehaviour
                 waittime = 0;
                 break;
 
+            case TEKI_MOVE.atsider:
+                if (Random.Range(0, probability[1]) == 0)
+                {
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        mode = TEKI_MOVE.atside;
+                        if (playerpos != null)
+                            transform.position = new Vector3(sidestart, playerpos.y);
+                        else transform.position = new Vector3(sidestart, 0);
+                        gameObject.tag = "GetHold";
+                    }
+                    else
+                    {
+                        mode = TEKI_MOVE.atsider;
+                        transform.rotation = new Quaternion(0, 180, 0, 0);
+                        if (playerpos != null)
+                            transform.position = new Vector3(-sidestart, playerpos.y);
+                        else transform.position = new Vector3(-sidestart, 0);
+                        gameObject.tag = "GetHold";
+
+                    }
+
+                }
+                else if (Random.Range(0, probability[2]) == 0)
+                {
+                    GetComponent<SpriteRenderer>().sprite = Sphand;
+                    mode = TEKI_MOVE.special;
+                    box = Instantiate(sub);
+                    if (playerpos != null)
+                    {
+                        transform.position = new Vector3(sidestart, playerpos.y);
+                        box.transform.position = new Vector3(-sidestart, playerpos.y);
+                    }
+                    else
+                        transform.position = new Vector3(sidestart, 0);
+                }
+                else
+                {
+                    GetComponent<SpriteRenderer>().sprite = Uhand;
+                    mode = TEKI_MOVE.atunder;
+                    if (playerpos != null)
+                        transform.position = new Vector3(playerpos.x, Enemy.startpos);
+                    else transform.position = new Vector3(0, Enemy.startpos);
+                }
+                waittime = 0;
+                break;
+
+
             //上へ戻る行動へ
             case TEKI_MOVE.special:
                 Destroy(box);
@@ -277,11 +360,24 @@ public class SEnemyScript : MonoBehaviour
                 if (Random.Range(0, probability[1]) == 0)
                 {
                     GetComponent<SpriteRenderer>().sprite = Shand;
-                    mode = TEKI_MOVE.atside;
-                    if (playerpos != null)
-                        transform.position = new Vector3(sidestart, playerpos.y);
-                    else transform.position = new Vector3(sidestart, 0);
-                    gameObject.tag = "GetHold";
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        mode = TEKI_MOVE.atside;
+                        if (playerpos != null)
+                            transform.position = new Vector3(sidestart, playerpos.y);
+                        else transform.position = new Vector3(sidestart, 0);
+                        gameObject.tag = "GetHold";
+                    }
+                    else
+                    {
+                        mode = TEKI_MOVE.atsider;
+                        transform.rotation = new Quaternion(0, 180, 0, 0);
+                        if (playerpos != null)
+                            transform.position = new Vector3(-sidestart, playerpos.y);
+                        else transform.position = new Vector3(-sidestart, 0);
+                        gameObject.tag = "GetHold";
+
+                    }
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
