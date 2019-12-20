@@ -22,6 +22,12 @@ public class EnemyHP : MonoBehaviour
 
     public void HpDamage(float damage)
     {
-        hp.value += damage;
+        if (hp.value != 1)
+        {
+            hp.value += damage;
+
+            if (hp.value > 1)
+                hp.value = 1;
+        }
     }
 }
