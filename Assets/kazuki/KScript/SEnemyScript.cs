@@ -33,6 +33,11 @@ public class SEnemyScript : MonoBehaviour
     public GameObject player;
     private Vector3 playerpos;
 
+    public GameObject title;
+    public GameObject slider;
+
+    bool titleFlg = true;
+
     enum TEKI_MOVE
     {
         atunder,        //上から攻撃
@@ -56,11 +61,27 @@ public class SEnemyScript : MonoBehaviour
     void Update()
     {
 
+        
         if(Input.GetKeyDown(KeyCode.P))
         {
             mode = TEKI_MOVE.douga;
         }
+        if (titleFlg == true)
+        {
+            
+            title.SetActive(true);
 
+            GetComponent<TitleScript>().TittleScript();
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                titleFlg = false;
+                GetComponent<SpriteRenderer>().sprite = Uhand;
+                mode = TEKI_MOVE.buck;
+                player.SetActive(true);
+                title.SetActive(false);
+                slider.SetActive(true);
+            }
+        }else
         switch (mode)
         {
             //上から下に攻撃
