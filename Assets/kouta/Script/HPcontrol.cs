@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*************************************************************
  * シュリンプのHP関連の処理を行います。
@@ -50,7 +51,11 @@ public class HPcontrol : MonoBehaviour
             else if (Health == 0)
             { // 体力0になった場合
                 Destroy(HP1); // 1つめのアイコンを消去
-                Destroy(Shrimp); //シュリンプを削除
+                //Destroy(Shrimp); //シュリンプを削除
+            }
+            else if (Health == -1)
+            {
+                SceneManager.LoadScene("α");
             }
             Health--;
         }

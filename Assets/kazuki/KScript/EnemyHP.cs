@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class EnemyHP : MonoBehaviour
@@ -17,7 +18,10 @@ public class EnemyHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(hp.value == 1)
+        {
+            SceneManager.LoadScene("α");
+        }
     }
 
     public void HpDamage(float damage)

@@ -29,11 +29,15 @@ public class ShrimpMove : MonoBehaviour
     bool SideWall = false;                      //SideWallに触れたかのフラグ
     bool UnderWall = false;                      //UnderWallに触れたかのフラグ
 
+    public GameObject Slider;
+    EnemyHP EnemyHP;
+
     // Start is called before the first frame update
     void Start()
     {
         //Rigidbody2Dの取得
         rigidbody = GetComponent<Rigidbody2D>();
+        EnemyHP = Slider.GetComponent<EnemyHP>();
     }
 
     /**********************************************************
@@ -149,6 +153,7 @@ public class ShrimpMove : MonoBehaviour
         ************************************************************/
         if (collision.gameObject.tag == "Safety")
         {
+            EnemyHP.HpDamage(0.1f);
             Safety = true;
         }
         /************************************************************
