@@ -419,6 +419,16 @@ PrefabInstance:
       propertyPath: HP3
       value: 
       objectReference: {fileID: 1470076241}
+    - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: Safety_Repulsion
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071225336948262066, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: StopRotation
+      value: 5.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ad965409231e3645a091abb6ca7fae7, type: 3}
 --- !u!1 &518477251
@@ -1471,6 +1481,11 @@ PrefabInstance:
         type: 3}
       propertyPath: probability.Array.data[2]
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984530707781807212, guid: 619c6cbe6f5b65b4588112464ce1730d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 619c6cbe6f5b65b4588112464ce1730d, type: 3}
