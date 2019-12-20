@@ -378,6 +378,9 @@ public class SEnemyScript : MonoBehaviour
             
             //攻撃へ
             case TEKI_MOVE.buck:
+
+                if (transform.rotation != Quaternion.identity)
+                    transform.rotation = Quaternion.identity;
                 if (Random.Range(0, probability[1]) == 0)
                 {
                     GetComponent<SpriteRenderer>().sprite = Shand;
@@ -430,7 +433,7 @@ public class SEnemyScript : MonoBehaviour
     {
         if (gameObject.tag == "GetHold" && (mode == TEKI_MOVE.atside || mode == TEKI_MOVE.atsider))
         {
-            transform.position += new Vector3(2, 0);
+            transform.position = player.transform.position;
             GetComponent<SpriteRenderer>().sprite = Catch;
             mode = TEKI_MOVE.pcatch;
             GetComponent<CatchShurimp>().Scriptstart();
