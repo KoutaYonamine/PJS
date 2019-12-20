@@ -18,7 +18,11 @@ public class TitleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+            UnityEngine.Application.Quit();
+        }
     }
 
     public void TittleScript()

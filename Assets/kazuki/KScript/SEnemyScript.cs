@@ -428,7 +428,7 @@ public class SEnemyScript : MonoBehaviour
 
     public void OnCollisionEnter2D()
     {
-        if (gameObject.tag == "GetHold" && mode == TEKI_MOVE.atside)
+        if (gameObject.tag == "GetHold" && (mode == TEKI_MOVE.atside || mode == TEKI_MOVE.atsider))
         {
             transform.position += new Vector3(2, 0);
             GetComponent<SpriteRenderer>().sprite = Catch;
