@@ -7,17 +7,21 @@ using UnityEngine;
  ************************************************************/
 public class ShrimpRotation : MonoBehaviour
 {
+    private new Rigidbody2D rigidbody;          //Rigidbody2D
     [SerializeField]
     private float rotation_speed = 0; // プレイヤーの回転速度
     [SerializeField]
     private float RotationalSpeedIncrease = 0; //回転速度増加量
+    [SerializeField]
+    private float StopRotation = 0;         //回転をやめる速さ
     private int RightRotationPushed = 0;   //右回転ボタンを押した回数
     private int LeftRotationPushed = 0;   //左回転ボタンを押した回数
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Rigidbody2Dの取得
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -55,6 +59,15 @@ public class ShrimpRotation : MonoBehaviour
         }
         //Debug.Log(RightRotationPushed);
         //Debug.Log(LeftRotationPushed);
-        transform.Rotate( new Vector3(0, 0, rotation_speed + (RotationalSpeedIncrease * (RightRotationPushed + LeftRotationPushed))) * Time.deltaTime, Space.Self );
+        //一定以下のスピードになるとします
+        if (rigidbody.velocity.magnitude <= StopRotation)
+        {
+            transform.Rotate(new Vector3(0, 0, rotation_speed + (RotationalSpeedIncrease * (RightRotationPushed + LeftRotationPushed))) * Time.deltaTime, Space.Self);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        
     }
 }
