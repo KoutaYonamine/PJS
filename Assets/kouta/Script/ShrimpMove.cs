@@ -28,6 +28,7 @@ public class ShrimpMove : MonoBehaviour
     bool Safety = false;                        //Chanceに触れたかのフラグ
     bool SideWall = false;                      //SideWallに触れたかのフラグ
     bool UnderWall = false;                      //UnderWallに触れたかのフラグ
+    public bool GetCaught = false;                      //シュリンプが捕まっているか
 
     public GameObject Slider;
     EnemyHP EnemyHP;
@@ -50,13 +51,15 @@ public class ShrimpMove : MonoBehaviour
         //SpaceKeyの入力処理
         if (UnderWaterStayed)   //水中にいますか？
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Keypad5)
-                || Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+            if (!GetCaught)
             {
-                SpaceButtonPushed = true;   //SpaceKeyが押されました
-                //Debug.Log("Update内のGetKeyDown");
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Keypad5)
+                    || Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    SpaceButtonPushed = true;   //SpaceKeyが押されました
+                    //Debug.Log("Update内のGetKeyDown");
+                }
             }
-
         }
     }
 
@@ -175,7 +178,17 @@ public class ShrimpMove : MonoBehaviour
         ************************************************************/
         if (collision.gameObject.tag == "GetHold")
         {
-            this.gameObject.SetActive(false);
+            GetCaught = true;
+            //シュリンプのアルファ値を変更しています。
+            if (GetCaught)
+            {
+                GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+            }
+            else if (!GetCaught)
+            {
+                GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+            }
+            //this.gameObject.SetActive(false);
         }
     }
 }
@@ -183,5 +196,5 @@ public class ShrimpMove : MonoBehaviour
 
 //途中の作業はここに書いて何してたかわかるようにする
 /***************************************************
- * 
+ * GetHoldの時のSetActiveをやめてアルファ値を変えるように仕様変更
 *****************************************************/

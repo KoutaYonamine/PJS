@@ -17,7 +17,8 @@ public class CatchShurimp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (clickFlg == true && Input.GetKeyDown(KeyCode.UpArrow) && count != 0)
+        if (clickFlg == true && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.Space))
+            && count != 0)
         {
             KeyClick();
         }

@@ -72,7 +72,7 @@ public class SEnemyScript : MonoBehaviour
             title.SetActive(true);
 
             GetComponent<TitleScript>().TittleScript();
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow)|| Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.Space))
             {
                 titleFlg = false;
                 GetComponent<SpriteRenderer>().sprite = Uhand;

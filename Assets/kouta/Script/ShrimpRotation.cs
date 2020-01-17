@@ -16,6 +16,7 @@ public class ShrimpRotation : MonoBehaviour
     private float StopRotation = 0;         //回転をやめる速さ
     private int RightRotationPushed = 0;   //右回転ボタンを押した回数
     private int LeftRotationPushed = 0;   //左回転ボタンを押した回数
+    private bool GetCaught;                 //シュリンプが捕まっているか
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,9 @@ public class ShrimpRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Keypad4))
+        GetCaught = GetComponent<ShrimpMove>().GetCaught;
+
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Keypad4))
         {
             RightRotationPushed = 0; //右回転ボタンの押した回数を初期化
             //回転速度上昇限界
@@ -62,7 +65,10 @@ public class ShrimpRotation : MonoBehaviour
         //一定以下のスピードになるとします
         if (rigidbody.velocity.magnitude <= StopRotation)
         {
-            transform.Rotate(new Vector3(0, 0, rotation_speed + (RotationalSpeedIncrease * (RightRotationPushed + LeftRotationPushed))) * Time.deltaTime, Space.Self);
+            if (!GetCaught)
+            {
+                transform.Rotate(new Vector3(0, 0, rotation_speed + (RotationalSpeedIncrease * (RightRotationPushed + LeftRotationPushed))) * Time.deltaTime, Space.Self);
+            }
         }
     }
 

@@ -20,7 +20,7 @@ public class TitleScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
             UnityEngine.Application.Quit();
         }
     }

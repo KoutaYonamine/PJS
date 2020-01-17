@@ -51,6 +51,7 @@ public class HPcontrol : MonoBehaviour
             else if (Health == 0)
             { // 体力0になった場合
                 Destroy(HP1); // 1つめのアイコンを消去
+                SceneManager.LoadScene("α");
                 //Destroy(Shrimp); //シュリンプを削除
             }
             else if (Health == -1)
