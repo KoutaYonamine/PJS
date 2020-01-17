@@ -48,6 +48,12 @@ public class ShrimpMove : MonoBehaviour
     ************************************************************/
     void Update()
     {
+        //シュリンプのアルファ値を変更しています。
+        if (!GetCaught)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+        }
+
         //SpaceKeyの入力処理
         if (UnderWaterStayed)   //水中にいますか？
         {
@@ -183,10 +189,6 @@ public class ShrimpMove : MonoBehaviour
             if (GetCaught)
             {
                 GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
-            }
-            else if (!GetCaught)
-            {
-                GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
             }
             //this.gameObject.SetActive(false);
         }
