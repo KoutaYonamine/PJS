@@ -37,8 +37,10 @@ public class SEnemyScript : MonoBehaviour
     public GameObject slider;
 
     bool titleFlg = true;
+    private float endalpha = 1;
+    private float time = 0;
 
-    enum TEKI_MOVE
+    public enum TEKI_MOVE
     {
         atunder,        //上から攻撃
         atside,         //横からの攻撃
@@ -46,9 +48,10 @@ public class SEnemyScript : MonoBehaviour
         buck,           //戻っていく
         special,        //両手攻撃
         pcatch,          //捕まえる
-        douga
+        douga,
+        end
     }
-    TEKI_MOVE mode = TEKI_MOVE.atunder;
+    public TEKI_MOVE mode = TEKI_MOVE.atunder;
 
 
     void Start()
@@ -72,7 +75,7 @@ public class SEnemyScript : MonoBehaviour
             title.SetActive(true);
 
             GetComponent<TitleScript>().TittleScript();
-            if (Input.GetKeyDown(KeyCode.UpArrow)|| Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
             {
                 titleFlg = false;
                 GetComponent<SpriteRenderer>().sprite = Uhand;
@@ -124,11 +127,15 @@ public class SEnemyScript : MonoBehaviour
 
             //戻って行く
             case TEKI_MOVE.buck:
-                //上に戻っていく   *攻撃可能
-                if (attckFlg = EnemyBuck()) ;
+                    //上に戻っていく   *攻撃可能
+                    if (attckFlg = EnemyBuck()) ;
 
-                //上まで戻った後に大体2秒後に攻撃に入る
-                else if ((waittime += Time.deltaTime) > 2) EnemyModeChang(mode);
+                    //上まで戻った後に大体2秒後に攻撃に入る
+                    else if ((waittime += Time.deltaTime) > 2)
+                    {
+                        EnemyModeChang(mode);
+                        GetComponent<BoxCollider2D>().enabled = true;
+                    }
 
                 break;
 
@@ -158,6 +165,19 @@ public class SEnemyScript : MonoBehaviour
             case TEKI_MOVE.douga:
                 mode = TEKI_MOVE.buck;
                 break;
+            case TEKI_MOVE.end:
+
+                    if (endalpha != 0 && (time += Time.deltaTime) > 0.1f)
+                    {
+                        Debug.Log("a");
+                        GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, endalpha -= 0.1f);
+                        if (box != null)
+                            box.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, endalpha);
+
+                        time = 0;
+                    }
+
+                    break;
         }
     }
 
@@ -197,7 +217,11 @@ public class SEnemyScript : MonoBehaviour
     {
         bool flg = true;
 
-        if (transform.position.y > Enemy.startpos) flg = false;
+        if (transform.position.y > Enemy.startpos)
+        {
+            flg = false;
+            GetComponent<BoxCollider2D>().enabled = false;
+        }
         if (flg) transform.position += new Vector3(0, Enemy.attckspeed);
 
         return flg;
@@ -444,7 +468,7 @@ public class SEnemyScript : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().sprite = Uhand;
         mode = TEKI_MOVE.buck;
-        player.SetActive(true);
+        player.GetComponent<ShrimpMove>().GetCaught = false;
     }
 
 }

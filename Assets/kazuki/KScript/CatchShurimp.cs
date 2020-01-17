@@ -21,6 +21,8 @@ public class CatchShurimp : MonoBehaviour
             && count != 0)
         {
             KeyClick();
+
+            
         }
         if(count == 0)
         {
@@ -40,7 +42,6 @@ public class CatchShurimp : MonoBehaviour
 
     public void Scriptstart()
     {
-        
         clickFlg = true;
         count = defalthp;
     }
