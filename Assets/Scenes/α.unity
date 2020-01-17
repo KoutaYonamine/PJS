@@ -267,6 +267,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1420780932500471390, guid: d9c756364a76a82429ae2e599756acd8,
+        type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 1400189887}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9c756364a76a82429ae2e599756acd8, type: 3}
 --- !u!1 &289655005
@@ -573,6 +578,16 @@ PrefabInstance:
       propertyPath: HP3
       value: 
       objectReference: {fileID: 1470076241}
+    - target: {fileID: 2071225336948262071, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071225336948262066, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: StopRotation
+      value: 5.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
         type: 3}
       propertyPath: Safety_Repulsion
@@ -583,11 +598,6 @@ PrefabInstance:
       propertyPath: Slider
       value: 
       objectReference: {fileID: 2051606758}
-    - target: {fileID: 2071225336948262066, guid: 9ad965409231e3645a091abb6ca7fae7,
-        type: 3}
-      propertyPath: StopRotation
-      value: 5.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ad965409231e3645a091abb6ca7fae7, type: 3}
 --- !u!1 &518477251
@@ -1763,6 +1773,11 @@ PrefabInstance:
     - target: {fileID: 8984530707781807212, guid: 619c6cbe6f5b65b4588112464ce1730d,
         type: 3}
       propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984530707781807212, guid: 619c6cbe6f5b65b4588112464ce1730d,
+        type: 3}
+      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
