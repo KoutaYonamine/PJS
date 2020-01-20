@@ -10,7 +10,7 @@ public class HPcontrol : MonoBehaviour
 {
     private new Rigidbody2D rigidbody;          //Rigidbody2D
     public GameObject Shrimp;
-    private int Health = 2;                         // 体力
+    public int Health = 2;                         // 体力
     public GameObject HP1;                      // プレイヤー残り体力1を示すUI
     public GameObject HP2;                      // プレイヤー残り体力2を示すUI
     public GameObject HP3;                      // プレイヤー残り体力3を示すUI
