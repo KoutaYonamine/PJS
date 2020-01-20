@@ -1423,5 +1423,30 @@ PrefabInstance:
       propertyPath: slider
       value: 
       objectReference: {fileID: 170530142}
+    - target: {fileID: 1610340666114519730, guid: 2cbe97b9f2a40d547adac6b6417ad56b,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610340666114519730, guid: 2cbe97b9f2a40d547adac6b6417ad56b,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610340666114519730, guid: 2cbe97b9f2a40d547adac6b6417ad56b,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610340666114519733, guid: 2cbe97b9f2a40d547adac6b6417ad56b,
+        type: 3}
+      propertyPath: damageTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610340666114519733, guid: 2cbe97b9f2a40d547adac6b6417ad56b,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 855350918}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cbe97b9f2a40d547adac6b6417ad56b, type: 3}

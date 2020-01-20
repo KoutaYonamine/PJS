@@ -38,7 +38,7 @@ public class CatchShurimp : MonoBehaviour
         }
         else if(clickFlg == true && count != 0)
         {
-            if((time += Time.deltaTime) > 3f)
+            if((time += Time.deltaTime) > damageTime)
             {
                 player.GetComponent<HPcontrol>().Health -= 1;
                 time = 0;

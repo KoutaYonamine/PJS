@@ -262,16 +262,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1420780933320121792, guid: d9c756364a76a82429ae2e599756acd8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1420780932500471390, guid: d9c756364a76a82429ae2e599756acd8,
         type: 3}
       propertyPath: hand
       value: 
       objectReference: {fileID: 1400189887}
+    - target: {fileID: 1420780933320121792, guid: d9c756364a76a82429ae2e599756acd8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9c756364a76a82429ae2e599756acd8, type: 3}
 --- !u!1 &289655005
@@ -578,36 +578,6 @@ PrefabInstance:
       propertyPath: HP3
       value: 
       objectReference: {fileID: 1470076241}
-    - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
-        type: 3}
-      propertyPath: Safety_Repulsion
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
-        type: 3}
-      propertyPath: Slider
-      value: 
-      objectReference: {fileID: 2051606758}
-    - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
-        type: 3}
-      propertyPath: SideWall_Repulsion
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
-        type: 3}
-      propertyPath: UnderWall_Repulsion
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071225336948262066, guid: 9ad965409231e3645a091abb6ca7fae7,
-        type: 3}
-      propertyPath: StopRotation
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071225336948262065, guid: 9ad965409231e3645a091abb6ca7fae7,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 7526e932294a3d845a636e960e32f74a, type: 2}
     - target: {fileID: 2071225336948262071, guid: 9ad965409231e3645a091abb6ca7fae7,
         type: 3}
       propertyPath: m_Color.r
@@ -627,6 +597,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071225336948262065, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 7526e932294a3d845a636e960e32f74a, type: 2}
+    - target: {fileID: 2071225336948262066, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: StopRotation
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: Safety_Repulsion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: Slider
+      value: 
+      objectReference: {fileID: 2051606758}
+    - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: SideWall_Repulsion
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: UnderWall_Repulsion
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ad965409231e3645a091abb6ca7fae7, type: 3}
@@ -1336,6 +1336,8 @@ MonoBehaviour:
   shurimp:
   - {fileID: 21300000, guid: df53387459d33a64c8bb0bfaa0a4e910, type: 3}
   - {fileID: 21300000, guid: eab67606751c0e040a68fbf792522cee, type: 3}
+  player: {fileID: 0}
+  damageTime: 0
 --- !u!114 &1400189894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1799,6 +1801,12 @@ PrefabInstance:
       propertyPath: Sphand3
       value: 
       objectReference: {fileID: 21300000, guid: c24a6a963939de946b519456133020b9,
+        type: 3}
+    - target: {fileID: 8984530707781807214, guid: 619c6cbe6f5b65b4588112464ce1730d,
+        type: 3}
+      propertyPath: ex
+      value: 
+      objectReference: {fileID: 5145164093690059536, guid: f895ea7cf9aefdb42854e4d95e148c93,
         type: 3}
     - target: {fileID: 8984530707781807212, guid: 619c6cbe6f5b65b4588112464ce1730d,
         type: 3}
