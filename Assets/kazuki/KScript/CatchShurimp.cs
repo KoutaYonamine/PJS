@@ -34,7 +34,7 @@ public class CatchShurimp : MonoBehaviour
             count++;
             clickFlg = false;
         }
-        else
+        else if(clickFlg == true && count != 0)
         {
             if((time += Time.deltaTime) > 3f)
             {
