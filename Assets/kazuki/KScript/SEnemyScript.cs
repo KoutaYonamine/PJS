@@ -26,7 +26,7 @@ public class SEnemyScript : MonoBehaviour
     //両手攻撃の時の右手のオブジェ
     public GameObject sub;
     //両手攻撃時の右手のオブジェクトを入れるやつ
-    private GameObject box;
+    public GameObject box;
     //プルプルカウント
     private int count = 0;
 

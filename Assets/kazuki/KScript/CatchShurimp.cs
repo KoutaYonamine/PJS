@@ -7,7 +7,10 @@ public class CatchShurimp : MonoBehaviour
     public int defalthp;
     private int count=1;
     public Sprite[] shurimp;
+    public GameObject player;
     private bool clickFlg = false;
+
+    private float time = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,13 @@ public class CatchShurimp : MonoBehaviour
             GetComponent<SEnemyScript>().ChangMode();
             count++;
             clickFlg = false;
+        }
+        else
+        {
+            if((time += Time.deltaTime) > 3f)
+            {
+                player.GetComponent<HPcontrol>().Health -= 1;
+            }
         }
     }
 

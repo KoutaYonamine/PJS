@@ -79,7 +79,10 @@ public class EnemyHP : MonoBehaviour
         Frunning = true;
 
         hand.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, alpha);
-
+        if (hand.GetComponent<SEnemyScript>().box != null)
+        {
+            hand.GetComponent<SEnemyScript>().box.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, alpha);
+        }
         if (alpha == 0)
             alpha = 1;
         else alpha = 0;
