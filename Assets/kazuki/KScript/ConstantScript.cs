@@ -24,5 +24,7 @@ namespace Constant
         //敵の移動スピード
         public const float attckspeed = 0.1f;
         public const float puruspeed = 0.3f;
+
+        public const float redcolor = 0.55f;
     }
 }

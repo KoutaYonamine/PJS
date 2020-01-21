@@ -16,7 +16,6 @@ public class SEnemyScript : MonoBehaviour
     public Sprite Sphand;
     public Sprite Sphand2;
     public Sprite Sphand3;
-
     public Sprite Uhand;
     public Sprite Catch;
 
@@ -30,21 +29,27 @@ public class SEnemyScript : MonoBehaviour
     //プルプルカウント
     private int count = 0;
 
+    //プレイヤーの情報
     public GameObject player;
     private Vector3 playerpos;
 
+    //タイトルの文字とゲージ
     public GameObject title;
     public GameObject slider;
-
+    //タイトルを表示するか
     bool titleFlg = true;
+    //死んだときにα値を変える変数
     private float endalpha = 1;
     private float time = 0;
 
+    //！のオブジェクト
     public GameObject ex;
     private GameObject exbox;
     private GameObject exbox2;
     private bool exflg = true;
 
+    //攻撃時の色
+    private float red = Enemy.redcolor;
 
     public enum TEKI_MOVE
     {
@@ -53,9 +58,9 @@ public class SEnemyScript : MonoBehaviour
         atsider,        //横からの攻撃（右から）
         buck,           //戻っていく
         special,        //両手攻撃
-        pcatch,          //捕まえる
-        douga,
-        end
+        pcatch,         //捕まえる
+        douga,          //上に上がっていく
+        end             //終わり？
     }
     public TEKI_MOVE mode = TEKI_MOVE.atunder;
 
@@ -242,9 +247,19 @@ public class SEnemyScript : MonoBehaviour
         if (exbox != null && transform.position.y < 5.0f)
             Destroy(exbox);
 
-        if (transform.position.y < Enemy.stopmove) flg = false;
-        if (flg) transform.position -= new Vector3(0, Enemy.attckspeed);
+        if (transform.position.y < Enemy.stopmove)
+        {
+            flg = false;
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        }
+        if (flg)
+        {
+            transform.position -= new Vector3(0, Enemy.attckspeed);
 
+            GetComponent<SpriteRenderer>().color = new Color(1,red,red,1);
+
+            
+        }
         return flg;
 
     }
@@ -256,9 +271,16 @@ public class SEnemyScript : MonoBehaviour
         if (exbox != null && transform.position.x > -6.5f)
             Destroy(exbox);
 
-        if (transform.position.x > Enemy.sidestop) flg = false;
-        if (flg) transform.position += new Vector3(Enemy.attckspeed, 0);
-
+        if (transform.position.x > Enemy.sidestop)
+        {
+            flg = false;
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        }
+        if (flg)
+        {
+            transform.position += new Vector3(Enemy.attckspeed, 0);
+            GetComponent<SpriteRenderer>().color = new Color(1, red, red, 1);
+        }
         return flg;
     }
     bool EnemyAttckSideR()
@@ -268,9 +290,16 @@ public class SEnemyScript : MonoBehaviour
         if (exbox != null && transform.position.x < 6.5f)
             Destroy(exbox);
 
-        if (transform.position.x < -Enemy.sidestop) flg = false;
-        if (flg) transform.position -= new Vector3(Enemy.attckspeed, 0);
-
+        if (transform.position.x < -Enemy.sidestop)
+        {
+            flg = false;
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        }
+        if (flg)
+        {
+            transform.position -= new Vector3(Enemy.attckspeed, 0);
+            GetComponent<SpriteRenderer>().color = new Color(1, red, red, 1);
+        }
         return flg;
     }
 
@@ -297,12 +326,15 @@ public class SEnemyScript : MonoBehaviour
         bool attckflg = false;     //trueなら攻撃
         bool endflg = false;       //trueなら攻撃終了
         float attckspeed = Enemy.attckspeed;
+        
 
         if (transform.position.x < Enemy.purustartpos)
         {
             transform.position += new Vector3(attckspeed, 0);
             box.transform.position += new Vector3(-attckspeed, 0);
             Debug.Log("1");
+            GetComponent<SpriteRenderer>().color = new Color(1, red, red, 1);
+            box.GetComponent<SpriteRenderer>().color = new Color(1, red, red, 1);
         }
         else if (count < 40) puruflg = true;
         else  attckflg = true;
@@ -328,10 +360,19 @@ public class SEnemyScript : MonoBehaviour
                 waittime = 0;
                 count++;
             }
-            
+            if(transform.position.y - player.transform.position.y > 1 )
+            {
+                transform.position -= new Vector3(0, 0.1f);
+                box.transform.position -= new Vector3(0, 0.1f);
+            }
+            else if(transform.position.y - player.transform.position.y < -1)
+            {
+                transform.position += new Vector3(0, 0.1f);
+                box.transform.position += new Vector3(0, 0.1f);
+            }
         }
 
-        if (attckflg == true && transform.position.x < Enemy.attckstoppos)
+        if (attckflg == true && transform.position.x < Enemy.attckstoppos && (waittime += Time.deltaTime) > 0.75f)
         {
             if (GetComponent<SpriteRenderer>().sprite != Sphand2)
             {
@@ -343,17 +384,26 @@ public class SEnemyScript : MonoBehaviour
                 transform.position += new Vector3(attckspeed * 10, 0);
                 box.transform.position += new Vector3(-attckspeed * 10, 0);
             }
+
+            if (transform.position.x >= Enemy.attckstoppos)
+                waittime = 0;
         }
         else if (transform.position.x >= Enemy.attckstoppos && (waittime += Time.deltaTime) > 0.3f)
         {
             endflg = true;
         }
-        else if(transform.position.x >= Enemy.attckstoppos)
+        else if(transform.position.x >= Enemy.attckstoppos )
         {
             if (GetComponent<SpriteRenderer>().sprite != Sphand3)
             {
                 GetComponent<SpriteRenderer>().sprite = Sphand3;
                 box.GetComponent<SpriteRenderer>().sprite = Sphand3;
+            }
+
+            if (waittime > 0.1f)
+            {
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                box.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
             }
         }
        
@@ -597,6 +647,7 @@ public class SEnemyScript : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = Catch;
             mode = TEKI_MOVE.pcatch;
             GetComponent<CatchShurimp>().Scriptstart();
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
         }
     }
 
@@ -605,6 +656,7 @@ public class SEnemyScript : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = Uhand;
         mode = TEKI_MOVE.buck;
         player.GetComponent<ShrimpMove>().GetCaught = false;
+        player.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
     }
 
 }
