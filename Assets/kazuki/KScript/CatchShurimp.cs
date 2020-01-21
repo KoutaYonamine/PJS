@@ -10,6 +10,8 @@ public class CatchShurimp : MonoBehaviour
     public GameObject player;
     private bool clickFlg = false;
 
+  [SerializeField] int damageTime;
+
     private float time = 0;
 
     // Start is called before the first frame update
@@ -39,6 +41,7 @@ public class CatchShurimp : MonoBehaviour
             if((time += Time.deltaTime) > 3f)
             {
                 player.GetComponent<HPcontrol>().Health -= 1;
+                time = 0;
             }
         }
     }
