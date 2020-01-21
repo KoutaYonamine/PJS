@@ -48,12 +48,6 @@ public class ShrimpMove : MonoBehaviour
     ************************************************************/
     void Update()
     {
-        //シュリンプのアルファ値を変更しています。
-        if (!GetCaught)
-        {
-            GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
-        }
-
         //SpaceKeyの入力処理
         if (UnderWaterStayed)   //水中にいますか？
         {
@@ -198,5 +192,5 @@ public class ShrimpMove : MonoBehaviour
 
 //途中の作業はここに書いて何してたかわかるようにする
 /***************************************************
- * GetHoldの時のSetActiveをやめてアルファ値を変えるように仕様変更
+ * 
 *****************************************************/
