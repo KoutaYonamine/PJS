@@ -181,16 +181,18 @@ public class SEnemyScript : MonoBehaviour
                     if (attckFlg = EnemyBuck()) ;
 
                     //上まで戻った後に大体2秒後に攻撃に入る
-                    else if ((waittime += Time.deltaTime) > 2 && player.GetComponent<HPcontrol>().ShrimpDied == false)
+                    else if ((waittime += Time.deltaTime) > 2 )
                     {
-                        if(player.GetComponent<HPcontrol>().ShrimpDied == true)
+                        if (player == null || player.GetComponent<SpriteRenderer>().color.a == 0)
                         {
                             SceneManager.LoadScene("α");
                         }
-
-                        EnemyModeChang(mode);
-                        GetComponent<BoxCollider2D>().enabled = true;
-                        exflg = true;
+                        else
+                        {
+                            EnemyModeChang(mode);
+                            GetComponent<BoxCollider2D>().enabled = true;
+                            exflg = true;
+                        }
                     }
                     //else
                     //{
@@ -247,12 +249,14 @@ public class SEnemyScript : MonoBehaviour
                     if (SRender.sprite == Catch)
                     {
                         mode = TEKI_MOVE.buck;
+                        Debug.Log("a");
                         
                     }
                     else
                     {
                         mode = TEKI_MOVE.atside;
-                        transform.position = new Vector3(Enemy.sidestart, playerpos.y);
+                        transform.position = new Vector3(Enemy.sidestart, player.transform.position.y);
+                        SRender.sprite = Shand;
                     }
 
                 break;
@@ -706,6 +710,7 @@ public class SEnemyScript : MonoBehaviour
             SRender.sprite = Catch;
             mode = TEKI_MOVE.buck;
             SRender.color = new Color(1, 1, 1, 1);
+            Destroy(player);
         }
 
     }

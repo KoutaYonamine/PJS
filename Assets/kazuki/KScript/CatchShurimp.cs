@@ -10,7 +10,7 @@ public class CatchShurimp : MonoBehaviour
     public GameObject player;
     private bool clickFlg = false;
 
-    private Color color;
+    private SpriteRenderer color;
 
   [SerializeField] int damageTime;
 
@@ -40,17 +40,25 @@ public class CatchShurimp : MonoBehaviour
         }
         else if(clickFlg == true && count != 0)
         {
-            if(color == null)
-            color = GetComponent<SpriteRenderer>().color;
 
-            if (color.b != 1)
-                color = new Color(1,1,1,1);
+            if(color == null)
+            color = GetComponent<SpriteRenderer>();
+
+            if (color.color.b != 1)
+                color.color = new Color(1,1,1,1);
 
             if ((time += Time.deltaTime) > damageTime)
             {
-                player.GetComponent<HPcontrol>().Health -= 1;
+                if((player.GetComponent<HPcontrol>().Health -= 1) == 0)
+                {
+                    GetComponent<SEnemyScript>().mode = SEnemyScript.TEKI_MOVE.douga;
+                    clickFlg = false;
+                }
                 time = 0;
-                color = new Color(1, 0.55f, 0.55f, 1);
+
+                color.color = new Color(1, 0.55f, 0.55f, 1);
+
+                
             }
         }
     }
