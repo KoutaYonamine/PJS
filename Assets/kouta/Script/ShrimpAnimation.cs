@@ -21,11 +21,18 @@ public class ShrimpAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Keyの入力処理
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Keypad5)
-                || Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (!GetComponent<HPcontrol>().ShrimpDied)  //シュリンプは力尽きていませんか？
         {
-            GetComponent<Animator>().SetTrigger("OnceAttack");
+            if (!GetComponent<ShrimpMove>().GetCaught)  //シュリンプは捕まっていませんか？
+            {
+                //Keyの入力処理
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Keypad5)
+                        || Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    //移動兼体当たりのアニメーションを実行します。
+                    GetComponent<Animator>().SetTrigger("OnceAttack");
+                }
+            }
         }
 
         

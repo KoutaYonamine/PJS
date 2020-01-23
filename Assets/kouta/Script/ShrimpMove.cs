@@ -51,13 +51,17 @@ public class ShrimpMove : MonoBehaviour
         //SpaceKeyの入力処理
         if (UnderWaterStayed)   //水中にいますか？
         {
-            if (!GetCaught)
+            if (!GetComponent<HPcontrol>().ShrimpDied)  //シュリンプは力尽きていませんか？
             {
-                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Keypad5)
-                    || Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+                if (!GetCaught)     //シュリンプは捕まっていないですか？
                 {
-                    SpaceButtonPushed = true;   //SpaceKeyが押されました
-                    //Debug.Log("Update内のGetKeyDown");
+                    ////Keyの入力処理
+                    if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Keypad5)
+                        || Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+                    {
+                        SpaceButtonPushed = true;   //SpaceKeyが押されました
+                        //Debug.Log("Update内のGetKeyDown");
+                    }
                 }
             }
         }
@@ -178,10 +182,11 @@ public class ShrimpMove : MonoBehaviour
         ************************************************************/
         if (collision.gameObject.tag == "GetHold")
         {
-            GetCaught = true;
+            GetCaught = true;   //シュリンプは捕まりました。
             //シュリンプのアルファ値を変更しています。
-            if (GetCaught)
+            if (GetCaught)      //シュリンプは捕まっていますか？
             {
+                //シュリンプの色を消します
                 GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
             }
             //this.gameObject.SetActive(false);
