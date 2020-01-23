@@ -15,7 +15,7 @@ namespace Constant
         //上まで上がっていって止まる位置
         public const float startpos = 8;
         //横攻撃の止まる位置
-        public const float sidestop = 10;
+        public const float sidestop = 12;
         //横攻撃の初期位置
         public const float sidestart = -12;
         //両手攻撃の止まる位置
