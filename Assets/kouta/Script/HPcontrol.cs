@@ -25,6 +25,7 @@ public class HPcontrol : MonoBehaviour
     private float HP2Alpha = 1;                  //HPUIのアルファ値
     private float HP3Alpha = 1;                  //HPUIのアルファ値
     public bool ShrimpDied = false;            //シュリンプ死亡確認
+    public GameObject Enemy;
 
 
     // Start is called before the first frame update
@@ -98,6 +99,7 @@ public class HPcontrol : MonoBehaviour
         else if (Health == 0)
         { // 体力0になった場合
             ShrimpDied = true;  //シュリンプが力尽きました
+            Enemy.GetComponent<SEnemyScript>().mode = SEnemyScript.TEKI_MOVE.douga;
             if (HP1Alpha >= 0)
             {
                 //HPUIを上に移動させつつアルファ値を下げていく

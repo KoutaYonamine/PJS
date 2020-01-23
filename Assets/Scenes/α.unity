@@ -583,6 +583,11 @@ PrefabInstance:
       propertyPath: Health
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2071225336948262068, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 1400189887}
     - target: {fileID: 2071225336948262067, guid: 9ad965409231e3645a091abb6ca7fae7,
         type: 3}
       propertyPath: Safety_Repulsion
@@ -1430,12 +1435,12 @@ PrefabInstance:
     - target: {fileID: 4415453207377222527, guid: d49d70e9dc18dc34cb859567a760b438,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 30
+      value: 44.3
       objectReference: {fileID: 0}
     - target: {fileID: 4415453207377222527, guid: d49d70e9dc18dc34cb859567a760b438,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -18.7
+      value: -161.4
       objectReference: {fileID: 0}
     - target: {fileID: 4415453207377222527, guid: d49d70e9dc18dc34cb859567a760b438,
         type: 3}
