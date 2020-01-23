@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Constant;
 
 public class SEnemyScript : MonoBehaviour
@@ -51,6 +52,11 @@ public class SEnemyScript : MonoBehaviour
     //攻撃時の色
     private float red = Enemy.redcolor;
 
+    private GameObject prefab;
+    private float galpha = 0;
+
+    private SpriteRenderer SRender;
+
     public enum TEKI_MOVE
     {
         atunder,        //上から攻撃
@@ -67,6 +73,7 @@ public class SEnemyScript : MonoBehaviour
 
     void Start()
     {
+        SRender = GetComponent<SpriteRenderer>();
         attckFlg = true;
         waittime = 0;
     }
@@ -89,7 +96,7 @@ public class SEnemyScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
             {
                 titleFlg = false;
-                GetComponent<SpriteRenderer>().sprite = Uhand;
+                SRender.sprite = Uhand;
                 mode = TEKI_MOVE.buck;
                 player.SetActive(true);
                 title.SetActive(false);
@@ -124,7 +131,7 @@ public class SEnemyScript : MonoBehaviour
 
             //横から攻撃
             case TEKI_MOVE.atside:
-                    if (exflg == true)
+                    if (exflg == true && player.GetComponent<HPcontrol>().ShrimpDied == false)
                     {
                         if ((waittime += Time.deltaTime) > 1)
                         {
@@ -173,7 +180,7 @@ public class SEnemyScript : MonoBehaviour
                     if (attckFlg = EnemyBuck()) ;
 
                     //上まで戻った後に大体2秒後に攻撃に入る
-                    else if ((waittime += Time.deltaTime) > 2)
+                    else if ((waittime += Time.deltaTime) > 2 && player.GetComponent<HPcontrol>().ShrimpDied == false)
                     {
                         EnemyModeChang(mode);
                         GetComponent<BoxCollider2D>().enabled = true;
@@ -221,16 +228,43 @@ public class SEnemyScript : MonoBehaviour
             case TEKI_MOVE.pcatch:
                 break;
             case TEKI_MOVE.douga:
-                mode = TEKI_MOVE.buck;
+
+                    if (box)
+                        Destroy(box);
+                    if (exbox)
+                        Destroy(exbox);
+                    if (exbox2)
+                        Destroy(exbox2);
+                    
+                    if(mode == TEKI_MOVE.pcatch)
+                    mode = TEKI_MOVE.buck;
+                    else
+                    {
+                        mode = TEKI_MOVE.atside;
+                    }
+
                 break;
             case TEKI_MOVE.end:
+                    
 
-                    if (endalpha != 0 && (time += Time.deltaTime) > 0.1f)
+                    if (endalpha > 0 && (time += Time.deltaTime) > 0.1f)
                     {
-                        Debug.Log("a");
-                        GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, endalpha -= 0.1f);
+                        SRender.color = new Color(1, 1, 1, endalpha -= 0.1f);
+                        slider.GetComponent<Slider>().fillRect.GetComponent<Image>().color = new Color(1, 1, 1, endalpha);
+                        slider.GetComponentInChildren<Image>().color = new Color(1, 1, 1, endalpha);
                         if (box != null)
-                            box.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, endalpha);
+                            box.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, endalpha);
+
+                        time = 0;
+                    }
+                    else if(endalpha < 0 &&(time += Time.deltaTime) > 0.1f)
+                    {
+                        if (prefab == null)
+                        {
+                            prefab = Resources.Load<GameObject>("gekitai");
+                            prefab = Instantiate(prefab);
+                        }
+                        else if(galpha <= 1) prefab.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, galpha += 0.1f);
 
                         time = 0;
                     }
@@ -250,19 +284,20 @@ public class SEnemyScript : MonoBehaviour
         if (transform.position.y < Enemy.stopmove)
         {
             flg = false;
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            SRender.color = new Color(1, 1, 1, 1);
         }
         if (flg)
         {
             transform.position -= new Vector3(0, Enemy.attckspeed);
 
-            GetComponent<SpriteRenderer>().color = new Color(1,red,red,1);
+            SRender.color = new Color(1,red,red,1);
 
             
         }
         return flg;
 
     }
+
     //左から右に攻撃
     bool EnemyAttckSide()
     {
@@ -274,15 +309,17 @@ public class SEnemyScript : MonoBehaviour
         if (transform.position.x > Enemy.sidestop)
         {
             flg = false;
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            SRender.color = new Color(1, 1, 1, 1);
         }
         if (flg)
         {
             transform.position += new Vector3(Enemy.attckspeed, 0);
-            GetComponent<SpriteRenderer>().color = new Color(1, red, red, 1);
+            SRender.color = new Color(1, red, red, 1);
         }
         return flg;
     }
+
+    //右から左に攻撃
     bool EnemyAttckSideR()
     {
         bool flg = true;
@@ -293,12 +330,12 @@ public class SEnemyScript : MonoBehaviour
         if (transform.position.x < -Enemy.sidestop)
         {
             flg = false;
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            SRender.color = new Color(1, 1, 1, 1);
         }
         if (flg)
         {
             transform.position -= new Vector3(Enemy.attckspeed, 0);
-            GetComponent<SpriteRenderer>().color = new Color(1, red, red, 1);
+            SRender.color = new Color(1, red, red, 1);
         }
         return flg;
     }
@@ -333,7 +370,7 @@ public class SEnemyScript : MonoBehaviour
             transform.position += new Vector3(attckspeed, 0);
             box.transform.position += new Vector3(-attckspeed, 0);
             Debug.Log("1");
-            GetComponent<SpriteRenderer>().color = new Color(1, red, red, 1);
+            SRender.color = new Color(1, red, red, 1);
             box.GetComponent<SpriteRenderer>().color = new Color(1, red, red, 1);
         }
         else if (count < 40) puruflg = true;
@@ -374,9 +411,9 @@ public class SEnemyScript : MonoBehaviour
 
         if (attckflg == true && transform.position.x < Enemy.attckstoppos && (waittime += Time.deltaTime) > 0.75f)
         {
-            if (GetComponent<SpriteRenderer>().sprite != Sphand2)
+            if (SRender.sprite != Sphand2)
             {
-                GetComponent<SpriteRenderer>().sprite = Sphand2;
+                SRender.sprite = Sphand2;
                 box.GetComponent<SpriteRenderer>().sprite = Sphand2;
             }
             else
@@ -394,15 +431,15 @@ public class SEnemyScript : MonoBehaviour
         }
         else if(transform.position.x >= Enemy.attckstoppos )
         {
-            if (GetComponent<SpriteRenderer>().sprite != Sphand3)
+            if (SRender.sprite != Sphand3)
             {
-                GetComponent<SpriteRenderer>().sprite = Sphand3;
+                SRender.sprite = Sphand3;
                 box.GetComponent<SpriteRenderer>().sprite = Sphand3;
             }
 
             if (waittime > 0.1f)
             {
-                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                SRender.color = new Color(1, 1, 1, 1);
                 box.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
             }
         }
@@ -462,7 +499,7 @@ public class SEnemyScript : MonoBehaviour
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
-                    GetComponent<SpriteRenderer>().sprite = Sphand;
+                    SRender.sprite = Sphand;
                     mode = TEKI_MOVE.special;
                     box = Instantiate(sub);
                     if (playerpos != null)
@@ -480,7 +517,7 @@ public class SEnemyScript : MonoBehaviour
                 }
                 else
                 {
-                    GetComponent<SpriteRenderer>().sprite = Uhand;
+                    SRender.sprite = Uhand;
                     mode = TEKI_MOVE.atunder;
                     if (playerpos != null)
                     {
@@ -527,7 +564,7 @@ public class SEnemyScript : MonoBehaviour
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
-                    GetComponent<SpriteRenderer>().sprite = Sphand;
+                    SRender.sprite = Sphand;
                     mode = TEKI_MOVE.special;
                     box = Instantiate(sub);
                     if (playerpos != null)
@@ -545,7 +582,7 @@ public class SEnemyScript : MonoBehaviour
                 }
                 else
                 {
-                    GetComponent<SpriteRenderer>().sprite = Uhand;
+                    SRender.sprite = Uhand;
                     mode = TEKI_MOVE.atunder;
                     if (playerpos != null)
                     {
@@ -563,7 +600,7 @@ public class SEnemyScript : MonoBehaviour
             case TEKI_MOVE.special:
                 Destroy(box);
                 count = 0;
-                GetComponent<SpriteRenderer>().sprite = Uhand;
+                SRender.sprite = Uhand;
                 transform.position = new Vector3(0, transform.position.y);
                 mode = TEKI_MOVE.buck;
                 waittime = 0;
@@ -576,7 +613,7 @@ public class SEnemyScript : MonoBehaviour
                     transform.rotation = Quaternion.identity;
                 if (Random.Range(0, probability[1]) == 0)
                 {
-                    GetComponent<SpriteRenderer>().sprite = Shand;
+                    SRender.sprite = Shand;
                     if (Random.Range(0, 2) == 0)
                     {
                         mode = TEKI_MOVE.atside;
@@ -606,7 +643,7 @@ public class SEnemyScript : MonoBehaviour
                 }
                 else if (Random.Range(0, probability[2]) == 0)
                 {
-                    GetComponent<SpriteRenderer>().sprite = Sphand;
+                    SRender.sprite = Sphand;
                     mode = TEKI_MOVE.special;
                     box = Instantiate(sub);
                     if (playerpos != null)
@@ -637,23 +674,34 @@ public class SEnemyScript : MonoBehaviour
                 break;
         }
     }
-
-
+    
+    //つかみ攻撃当たった時
     public void OnCollisionEnter2D()
     {
-        if (gameObject.tag == "GetHold" && (mode == TEKI_MOVE.atside || mode == TEKI_MOVE.atsider))
+        if (gameObject.tag == "GetHold" && (mode == TEKI_MOVE.atside || mode == TEKI_MOVE.atsider) && player.GetComponent<HPcontrol>().ShrimpDied == false)
         {
             transform.position = player.transform.position;
-            GetComponent<SpriteRenderer>().sprite = Catch;
+            SRender.sprite = Catch;
             mode = TEKI_MOVE.pcatch;
             GetComponent<CatchShurimp>().Scriptstart();
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            SRender.color = new Color(1, 1, 1, 1);
+            if (exbox != null)
+                Destroy(exbox);
         }
+        else if (player.GetComponent<HPcontrol>().ShrimpDied == true)
+        {
+            transform.position = player.transform.position;
+            SRender.sprite = Catch;
+            mode = TEKI_MOVE.buck;
+            SRender.color = new Color(1, 1, 1, 1);
+        }
+
     }
 
+    //捕まえてる海老が逃げた時
     public void ChangMode()
     {
-        GetComponent<SpriteRenderer>().sprite = Uhand;
+        SRender.sprite = Uhand;
         mode = TEKI_MOVE.buck;
         player.GetComponent<ShrimpMove>().GetCaught = false;
         player.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
