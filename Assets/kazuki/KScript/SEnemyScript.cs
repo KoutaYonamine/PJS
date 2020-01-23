@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Constant;
+using UnityEngine.SceneManagement;
 
 public class SEnemyScript : MonoBehaviour
 {
@@ -182,6 +183,11 @@ public class SEnemyScript : MonoBehaviour
                     //上まで戻った後に大体2秒後に攻撃に入る
                     else if ((waittime += Time.deltaTime) > 2 && player.GetComponent<HPcontrol>().ShrimpDied == false)
                     {
+                        if(player.GetComponent<HPcontrol>().ShrimpDied == true)
+                        {
+                            SceneManager.LoadScene("α");
+                        }
+
                         EnemyModeChang(mode);
                         GetComponent<BoxCollider2D>().enabled = true;
                         exflg = true;
@@ -235,12 +241,18 @@ public class SEnemyScript : MonoBehaviour
                         Destroy(exbox);
                     if (exbox2)
                         Destroy(exbox2);
-                    
-                    if(mode == TEKI_MOVE.pcatch)
-                    mode = TEKI_MOVE.buck;
+
+                   
+
+                    if (SRender.sprite == Catch)
+                    {
+                        mode = TEKI_MOVE.buck;
+                        
+                    }
                     else
                     {
                         mode = TEKI_MOVE.atside;
+                        transform.position = new Vector3(Enemy.sidestart, playerpos.y);
                     }
 
                 break;
