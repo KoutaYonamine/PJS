@@ -99,7 +99,6 @@ public class HPcontrol : MonoBehaviour
         else if (Health == 0)
         { // 体力0になった場合
             ShrimpDied = true;  //シュリンプが力尽きました
-            Enemy.GetComponent<SEnemyScript>().mode = SEnemyScript.TEKI_MOVE.douga;
             if (HP1Alpha >= 0)
             {
                 //HPUIを上に移動させつつアルファ値を下げていく
@@ -139,11 +138,11 @@ public class HPcontrol : MonoBehaviour
             { // 体力1になった場合
                 Destroy(HP2); // 2つめのアイコンを消去
             }
-            else if (Health == 0)
-            { // 体力0になった場合
-                Destroy(HP1); // 1つめのアイコンを消去
-            }
             Health--;
+            if (Health == 0)
+            { // 体力0になった場合
+                Enemy.GetComponent<SEnemyScript>().mode = SEnemyScript.TEKI_MOVE.douga;
+            }
         }
     }
 }
