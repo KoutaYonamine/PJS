@@ -55,7 +55,7 @@ public class CatchShurimp : MonoBehaviour
                     clickFlg = false;
                 }
                 time = 0;
-
+                if(player.GetComponent<HPcontrol>().Health != 0)
                 color.color = new Color(1, 0.55f, 0.55f, 1);
 
                 

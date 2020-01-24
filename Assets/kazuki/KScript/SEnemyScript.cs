@@ -150,11 +150,15 @@ public class SEnemyScript : MonoBehaviour
 
                         //攻撃が終わった後攻撃できるように
                         else if (gameObject.tag != "Safety") gameObject.tag = "Safety";
+
+                        else if (player.GetComponent<HPcontrol>().ShrimpDied == true)
+                            EnemyModeChang(mode);
                     }
+
                 break;
 
             case TEKI_MOVE.atsider:
-                    if (exflg == true)
+                    if (exflg == true && player.GetComponent<HPcontrol>().ShrimpDied == false)
                     {
                         if ((waittime += Time.deltaTime) > 1)
                         {
@@ -280,9 +284,21 @@ public class SEnemyScript : MonoBehaviour
                             prefab = Resources.Load<GameObject>("gekitai");
                             prefab = Instantiate(prefab);
                         }
-                        else if(galpha <= 1) prefab.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, galpha += 0.1f);
+                        else if (galpha <= 1)
+                        {
+                            prefab.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, galpha += 0.1f);
+                            time = 0;
+                        }
+                        else if (galpha > 2 || time > 0.8f)
+                        {
+                            GetComponent<FadeScript>().PanelFade();
+                            galpha = 2.5f;
+                            time = 0;
 
-                        time = 0;
+                        }
+
+
+                        
                     }
 
                     break;
@@ -366,7 +382,7 @@ public class SEnemyScript : MonoBehaviour
             flg = false;
             GetComponent<BoxCollider2D>().enabled = false;
         }
-        if (flg) transform.position += new Vector3(0, Enemy.attckspeed);
+        if (flg) transform.position += new Vector3(0, Enemy.backspeed);
 
         return flg;
 
@@ -434,8 +450,8 @@ public class SEnemyScript : MonoBehaviour
             }
             else
             {
-                transform.position += new Vector3(attckspeed * 10, 0);
-                box.transform.position += new Vector3(-attckspeed * 10, 0);
+                transform.position += new Vector3(Enemy.backspeed * 10, 0);
+                box.transform.position += new Vector3(-Enemy.backspeed * 10, 0);
             }
 
             if (transform.position.x >= Enemy.attckstoppos)
@@ -483,6 +499,16 @@ public class SEnemyScript : MonoBehaviour
             //攻撃へ
             case TEKI_MOVE.atside:
                 exflg = true;
+
+                if(player.GetComponent<HPcontrol>().ShrimpDied)
+                {
+                    mode = TEKI_MOVE.atsider;
+                    transform.position = transform.position = new Vector3(-sidestart, playerpos.y);
+                    transform.rotation = new Quaternion(0, 180, 0, 0);
+                    gameObject.tag = "GetHold";
+                    break;
+                }
+
                 if (Random.Range(0, probability[1]) == 0)
                 {
                     if (Random.Range(0, 2) == 0)
