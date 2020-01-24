@@ -8,6 +8,7 @@ public class CatchShurimp : MonoBehaviour
     private int count=1;
     public Sprite[] shurimp;
     public GameObject player;
+    private GameObject boutan;
     private bool clickFlg = false;
 
     private SpriteRenderer color;
@@ -37,6 +38,7 @@ public class CatchShurimp : MonoBehaviour
             count++;
             clickFlg = false;
             time = 0;
+            Destroy(boutan);
         }
         else if(clickFlg == true && count != 0)
         {
@@ -55,7 +57,7 @@ public class CatchShurimp : MonoBehaviour
                     clickFlg = false;
                 }
                 time = 0;
-
+                if(player.GetComponent<HPcontrol>().Health != 0)
                 color.color = new Color(1, 0.55f, 0.55f, 1);
 
                 
@@ -74,5 +76,12 @@ public class CatchShurimp : MonoBehaviour
     {
         clickFlg = true;
         count = defalthp;
+
+        boutan = Resources.Load<GameObject>("renndaUISprite_0");
+        boutan = Instantiate(boutan);
+        if(transform.position.x > 0)
+            boutan.transform.position = new Vector3(transform.position.x -2, transform.position.y);
+        else
+            boutan.transform.position = new Vector3(transform.position.x + 2, transform.position.y);
     }
 }
