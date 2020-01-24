@@ -443,6 +443,12 @@ public class SEnemyScript : MonoBehaviour
             {
                 transform.position += new Vector3(0, 0.1f);
                 box.transform.position += new Vector3(0, 0.1f);
+
+                if (transform.position.y > 4)
+                {
+                    transform.position -= new Vector3(0, 0.1f);
+                    box.transform.position -= new Vector3(0, 0.1f);
+                }
             }
         }
 

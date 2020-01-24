@@ -55,6 +55,7 @@ public class CatchShurimp : MonoBehaviour
                 {
                     GetComponent<SEnemyScript>().mode = SEnemyScript.TEKI_MOVE.douga;
                     clickFlg = false;
+                    Destroy(boutan);
                 }
                 time = 0;
                 if(player.GetComponent<HPcontrol>().Health != 0)
