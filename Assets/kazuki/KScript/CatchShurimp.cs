@@ -80,8 +80,8 @@ public class CatchShurimp : MonoBehaviour
         boutan = Resources.Load<GameObject>("renndaUISprite_0");
         boutan = Instantiate(boutan);
         if(transform.position.x > 0)
-            boutan.transform.position = new Vector3(transform.position.x -2, transform.position.y);
+            boutan.transform.position = new Vector3(transform.position.x -3, transform.position.y);
         else
-            boutan.transform.position = new Vector3(transform.position.x + 2, transform.position.y);
+            boutan.transform.position = new Vector3(transform.position.x + 3, transform.position.y);
     }
 }

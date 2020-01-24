@@ -22,8 +22,9 @@ namespace Constant
         public const float purustartpos = -8;
         public const float attckstoppos = -1;
         //敵の移動スピード
-        public const float attckspeed = 0.15f;
-        public const float backspeed = 0.1f;
+        public const float attckspeed = 0.15f;        //上から下の攻撃
+        public const float catchspeed = 0.15f;        //つかみ攻撃
+        public const float backspeed = 0.075f;        //上に戻る速度
         public const float puruspeed = 0.3f;
 
         public const float redcolor = 0.55f;

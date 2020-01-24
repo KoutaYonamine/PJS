@@ -18,7 +18,7 @@ public class FadeScript : MonoBehaviour
             GameObject canvas = Instantiate(Canvas);
             Panel = canvas.GetComponentInChildren<Image>();
         }
-        float alpha = Panel.color.a + 0.05f;
+        float alpha = Panel.color.a + 0.015f;
         Panel.color = new Color(Panel.color.r, Panel.color.b, Panel.color.g, alpha);
     }
 }
