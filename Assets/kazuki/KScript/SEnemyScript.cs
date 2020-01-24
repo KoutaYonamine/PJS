@@ -57,6 +57,7 @@ public class SEnemyScript : MonoBehaviour
     private float galpha = 0;
 
     private SpriteRenderer SRender;
+    private bool stayflg = false;
 
     public enum TEKI_MOVE
     {
@@ -123,7 +124,7 @@ public class SEnemyScript : MonoBehaviour
                         if (attckFlg = EnemyAttckUnder()) { if (gameObject.tag != "Danger") gameObject.tag = "Danger"; }
 
                         //大体2秒後に上に戻る
-                        else if ((waittime += Time.deltaTime) > 2) EnemyModeChang(mode);
+                        else if ((waittime += Time.deltaTime) > 1) EnemyModeChang(mode);
 
                         //攻撃が終わった後攻撃できるように
                         else if (gameObject.tag != "Safety") gameObject.tag = "Safety";
@@ -181,29 +182,35 @@ public class SEnemyScript : MonoBehaviour
 
             //戻って行く
             case TEKI_MOVE.buck:
-                    //上に戻っていく   *攻撃可能
-                    if (attckFlg = EnemyBuck()) ;
 
-                    //上まで戻った後に大体2秒後に攻撃に入る
-                    else if ((waittime += Time.deltaTime) > 2 )
+                    if (stayflg == false)
                     {
-                        if (player == null || player.GetComponent<SpriteRenderer>().color.a == 0)
+                        //上に戻っていく   *攻撃可能
+                        if (attckFlg = EnemyBuck()) ;
+
+                        //上まで戻った後に大体2秒後に攻撃に入る
+                        else if ((waittime += Time.deltaTime) > 2)
                         {
-                            SceneManager.LoadScene("α");
+                            if (player == null || player.GetComponent<SpriteRenderer>().color.a == 0)
+                            {
+                                SceneManager.LoadScene("α");
+                            }
+                            else
+                            {
+                                EnemyModeChang(mode);
+                                GetComponent<BoxCollider2D>().enabled = true;
+                                exflg = true;
+                            }
                         }
-                        else
-                        {
-                            EnemyModeChang(mode);
-                            GetComponent<BoxCollider2D>().enabled = true;
-                            exflg = true;
-                        }
+                        //else
+                        //{
+                        //    EnemyModeChang(mode);
+                        //    GetComponent<BoxCollider2D>().enabled = true;
+                        //    exflg = true;
+                        //}
                     }
-                    //else
-                    //{
-                    //    EnemyModeChang(mode);
-                    //    GetComponent<BoxCollider2D>().enabled = true;
-                    //    exflg = true;
-                    //}
+                    else if ((waittime += Time.deltaTime) > 1) stayflg = false;
+
                     break;
 
             //両手攻撃
@@ -277,7 +284,7 @@ public class SEnemyScript : MonoBehaviour
 
                         time = 0;
                     }
-                    else if(endalpha < 0 &&(time += Time.deltaTime) > 0.1f)
+                    else if(endalpha < 0 &&(time += Time.deltaTime) > 0.1f && galpha <= 1)
                     {
                         if (prefab == null)
                         {
@@ -289,16 +296,14 @@ public class SEnemyScript : MonoBehaviour
                             prefab.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, galpha += 0.1f);
                             time = 0;
                         }
-                        else if (galpha > 2 || time > 0.8f)
-                        {
-                            GetComponent<FadeScript>().PanelFade();
-                            galpha = 2.5f;
-                            time = 0;
-
-                        }
-
-
                         
+                    }
+                    else if (galpha > 2 || (time > 0.8f && galpha > 1))
+                    {
+                        GetComponent<FadeScript>().PanelFade();
+                        galpha = 2.5f;
+                        
+
                     }
 
                     break;
@@ -345,7 +350,7 @@ public class SEnemyScript : MonoBehaviour
         }
         if (flg)
         {
-            transform.position += new Vector3(Enemy.attckspeed, 0);
+            transform.position += new Vector3(Enemy.catchspeed, 0);
             SRender.color = new Color(1, red, red, 1);
         }
         return flg;
@@ -366,7 +371,7 @@ public class SEnemyScript : MonoBehaviour
         }
         if (flg)
         {
-            transform.position -= new Vector3(Enemy.attckspeed, 0);
+            transform.position -= new Vector3(Enemy.catchspeed, 0);
             SRender.color = new Color(1, red, red, 1);
         }
         return flg;
@@ -450,8 +455,8 @@ public class SEnemyScript : MonoBehaviour
             }
             else
             {
-                transform.position += new Vector3(Enemy.backspeed * 10, 0);
-                box.transform.position += new Vector3(-Enemy.backspeed * 10, 0);
+                transform.position += new Vector3(1, 0);
+                box.transform.position += new Vector3(-1, 0);
             }
 
             if (transform.position.x >= Enemy.attckstoppos)
@@ -746,6 +751,7 @@ public class SEnemyScript : MonoBehaviour
     {
         SRender.sprite = Uhand;
         mode = TEKI_MOVE.buck;
+        stayflg = true;
         player.GetComponent<ShrimpMove>().GetCaught = false;
         player.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
     }
