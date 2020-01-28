@@ -289,7 +289,7 @@ public class SEnemyScript : MonoBehaviour
                     }
                     else if(endalpha < 0 &&(time += Time.deltaTime) > 0.1f && galpha <= 1)
                     {
-                        slider.SetActive(false);
+                        slider.GetComponentInChildren<Image>().enabled = false;
 
                         if (prefab == null)
                         {
