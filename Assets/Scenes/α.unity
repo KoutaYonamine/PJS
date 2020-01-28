@@ -714,6 +714,11 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2071225336948262064, guid: 9ad965409231e3645a091abb6ca7fae7,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ad965409231e3645a091abb6ca7fae7, type: 3}
 --- !u!1 &518477251
