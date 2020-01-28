@@ -7,12 +7,13 @@ public class TitleScript : MonoBehaviour
     public Sprite[] ebi;
     float waittime;
 
-    int num;
+    int num = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.localScale = new Vector3(3, 3, 1);
+        GetComponent<SpriteRenderer>().sprite = ebi[num];
     }
 
     // Update is called once per frame
@@ -34,6 +35,8 @@ public class TitleScript : MonoBehaviour
             if (num == 4)
                 num = 0;
             waittime = 0;
+
+
         }
     }
 }
