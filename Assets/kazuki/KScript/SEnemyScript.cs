@@ -20,6 +20,7 @@ public class SEnemyScript : MonoBehaviour
     public Sprite Sphand3;
     public Sprite Uhand;
     public Sprite Catch;
+    public Sprite Catch2;
 
     [SerializeField,TooltipAttribute("0->上から攻撃の確率  1->横攻撃の確率  2->両手攻撃の確率")]
     int[] probability = new int[3];
@@ -99,6 +100,7 @@ public class SEnemyScript : MonoBehaviour
             {
                 titleFlg = false;
                 SRender.sprite = Uhand;
+                transform.localScale = new Vector3(2.5f, 2.5f, 1);
                 mode = TEKI_MOVE.buck;
                 player.SetActive(true);
                 title.SetActive(false);
@@ -257,7 +259,7 @@ public class SEnemyScript : MonoBehaviour
 
                    
 
-                    if (SRender.sprite == Catch)
+                    if (SRender.sprite == Catch || SRender.sprite == GetComponent<CatchShurimp>().shurimp[1])
                     {
                         mode = TEKI_MOVE.buck;
                         Debug.Log("a");
@@ -266,6 +268,7 @@ public class SEnemyScript : MonoBehaviour
                     else
                     {
                         mode = TEKI_MOVE.atside;
+                        SRender.color = new Color(1, 1, 1, 1);
                         transform.position = new Vector3(Enemy.sidestart, player.transform.position.y);
                         SRender.sprite = Shand;
                     }
@@ -286,6 +289,8 @@ public class SEnemyScript : MonoBehaviour
                     }
                     else if(endalpha < 0 &&(time += Time.deltaTime) > 0.1f && galpha <= 1)
                     {
+                        slider.SetActive(false);
+
                         if (prefab == null)
                         {
                             prefab = Resources.Load<GameObject>("gekitai");
@@ -339,7 +344,7 @@ public class SEnemyScript : MonoBehaviour
     bool EnemyAttckSide()
     {
         bool flg = true;
-
+        
         if (exbox != null && transform.position.x > -6.5f)
             Destroy(exbox);
 
@@ -351,6 +356,7 @@ public class SEnemyScript : MonoBehaviour
         if (flg)
         {
             transform.position += new Vector3(Enemy.catchspeed, 0);
+            if (player.GetComponent<HPcontrol>().ShrimpDied != true)
             SRender.color = new Color(1, red, red, 1);
         }
         return flg;
@@ -559,6 +565,7 @@ public class SEnemyScript : MonoBehaviour
                     {
                         transform.position = new Vector3(sidestart, playerpos.y);
                         box.transform.position = new Vector3(-sidestart, playerpos.y);
+                        box.transform.localScale = new Vector3(2.5f, 2.5f, 1);
 
                         exbox = Instantiate(ex);
                         exbox.transform.position = new Vector3(7.3f, playerpos.y);
@@ -624,6 +631,7 @@ public class SEnemyScript : MonoBehaviour
                     {
                         transform.position = new Vector3(sidestart, playerpos.y);
                         box.transform.position = new Vector3(-sidestart, playerpos.y);
+                        box.transform.localScale = new Vector3(2.5f, 2.5f, 1);
 
                         exbox = Instantiate(ex);
                         exbox.transform.position = new Vector3(7.3f, playerpos.y);
@@ -703,6 +711,7 @@ public class SEnemyScript : MonoBehaviour
                     {
                         transform.position = new Vector3(sidestart, playerpos.y);
                         box.transform.position = new Vector3(-sidestart, playerpos.y);
+                        box.transform.localScale = new Vector3(2.5f, 2.5f, 1);
 
                         exbox = Instantiate(ex);
                         exbox.transform.position = new Vector3(7.3f, playerpos.y);
@@ -735,6 +744,7 @@ public class SEnemyScript : MonoBehaviour
         {
             transform.position = player.transform.position;
             SRender.sprite = Catch;
+            transform.localScale = new Vector3(2.5f, 2.5f, 1);
             mode = TEKI_MOVE.pcatch;
             GetComponent<CatchShurimp>().Scriptstart();
             SRender.color = new Color(1, 1, 1, 1);
@@ -755,7 +765,10 @@ public class SEnemyScript : MonoBehaviour
     //捕まえてる海老が逃げた時
     public void ChangMode()
     {
+        if (transform.rotation.y != 0)
+            transform.rotation = new Quaternion(0, 0, 0, 0);
         SRender.sprite = Uhand;
+        transform.localScale = new Vector3(2.5f, 2.5f, 1);
         mode = TEKI_MOVE.buck;
         stayflg = true;
         player.GetComponent<ShrimpMove>().GetCaught = false;

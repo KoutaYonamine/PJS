@@ -26,12 +26,12 @@ public class CatchShurimp : MonoBehaviour
     void Update()
     {
         if (clickFlg == true && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.Space))
-            && count != 0)
+            && count != 0 && player.GetComponent<HPcontrol>().Health != 0)
         {
             KeyClick();
         }
 
-        if(count == 0)
+        if(count == 0 )
         {
             gameObject.tag = "Safety";
             GetComponent<SEnemyScript>().ChangMode();
@@ -60,7 +60,6 @@ public class CatchShurimp : MonoBehaviour
                 time = 0;
                 if(player.GetComponent<HPcontrol>().Health != 0)
                 color.color = new Color(1, 0.55f, 0.55f, 1);
-
                 
             }
         }
