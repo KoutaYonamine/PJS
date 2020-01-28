@@ -23,15 +23,21 @@ public class ShrimpMove : MonoBehaviour
     Vector3 move_force;                         //水中移動に掛かる力
     Vector3 UnderWater_force;                   //空中移動に掛かる力
     bool SpaceButtonPushed = false;             //Spaceが押されたかのフラグ
-    bool UnderWaterStayed = false;              //シュリンプが水中にいるかのフラグ
+    bool UnderWaterStayed = true;              //シュリンプが水中にいるかのフラグ
     bool AerialStayed = false;                  //シュリンプが空中にいるかのフラグ
     bool Safety = false;                        //Chanceに触れたかのフラグ
     bool SideWall = false;                      //SideWallに触れたかのフラグ
     bool UnderWall = false;                      //UnderWallに触れたかのフラグ
     public bool GetCaught = false;                      //シュリンプが捕まっているか
 
+    public bool ShrimpMoveSE = false;           //音の再生を許可する
+    public bool SafetyAttackSE = false;         //音の再生を許可する
+    public bool SplashDownSE = false;             //音の再生を許可する
+
     public GameObject Slider;
     EnemyHP EnemyHP;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +66,7 @@ public class ShrimpMove : MonoBehaviour
                         || Input.GetKeyDown(KeyCode.Keypad8) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
                     {
                         SpaceButtonPushed = true;   //SpaceKeyが押されました
+                        ShrimpMoveSE = true;     //音再生が許可されました
                         //Debug.Log("Update内のGetKeyDown");
                     }
                 }
@@ -151,9 +158,20 @@ public class ShrimpMove : MonoBehaviour
     }
 
     /************************************************************
-    * 当たり判定関連の処理
+    * 着水時の処理
     ************************************************************/
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Underwater")
+        {
+            SplashDownSE = true;
+        }
+    }
+
+        /************************************************************
+        * 当たり判定関連の処理
+        ************************************************************/
+        private void OnCollisionEnter2D(Collision2D collision)
     {
         /************************************************************
         * Chance状態のエネミーとの当たり判定処理
@@ -161,6 +179,7 @@ public class ShrimpMove : MonoBehaviour
         if (collision.gameObject.tag == "Safety")
         {
             EnemyHP.HpDamage(0.1f);
+            SafetyAttackSE = true;
             Safety = true;
         }
         /************************************************************
