@@ -26,6 +26,7 @@ public class HPcontrol : MonoBehaviour
     private float HP3Alpha = 1;                  //HPUIのアルファ値
     public bool ShrimpDied = false;            //シュリンプ死亡確認
     public GameObject Enemy;
+    public bool DamageSE = false;               //音の再生を許可する
 
 
     // Start is called before the first frame update
@@ -126,7 +127,8 @@ public class HPcontrol : MonoBehaviour
         if (collision.gameObject.tag == "Danger")
         {
             Damage = true;
-            AlphaNextTime = Time.time;
+            AlphaNextTime = Time.time;          //ゲーム開始からの経過時間を代入
+            DamageSE = true;                    //音の再生を許可する
 
             Debug.Log("エネミーと衝突:Danger");
             // 残り体力によって非表示にすべき体力アイコンを消去する
